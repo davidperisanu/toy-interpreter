@@ -1,0 +1,6 @@
+# Gradle files
+.gradle/
+.settings/
+bin/
+build/
+gradle/
