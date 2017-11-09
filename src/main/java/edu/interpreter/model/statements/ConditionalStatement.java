@@ -2,7 +2,7 @@ package edu.interpreter.model.statements;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.expressions.Expression;
-import edu.interpreter.model.utilities.IDeque;
+import edu.interpreter.model.utilities.interfaces.IDeque;
 
 /**
  * Represents a conditional statement.
@@ -12,15 +12,6 @@ public final class ConditionalStatement extends Statement {
     private Expression expression;
     private Statement ifStatement;
     private Statement elseStatement;
-
-    /**
-     * Initializes a new instance of the <code>ConditionalStatement</code> class that has the default values.
-     */
-    public ConditionalStatement() {
-        expression = null;
-        ifStatement = null;
-        elseStatement = null;
-    }
 
     /**
      * Initializes a new instance of the <code>ConditionalStatement</code> class with the specified values.

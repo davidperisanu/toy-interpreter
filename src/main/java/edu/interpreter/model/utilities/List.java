@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.IndexOutOfRangeException;
+import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
  * Represents a collection of objects that can be accessed by index.

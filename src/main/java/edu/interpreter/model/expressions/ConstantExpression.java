@@ -1,6 +1,6 @@
 package edu.interpreter.model.expressions;
 
-import edu.interpreter.model.utilities.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
 
 /**
  * Represents a constant expression.
@@ -8,13 +8,6 @@ import edu.interpreter.model.utilities.IDictionary;
  */
 public final class ConstantExpression extends Expression {
     private final int value;
-
-    /**
-     * Initializes a new instance of the <code>ConstantExpression</code> class that has the default value.
-     */
-    public ConstantExpression() {
-        value = 0;
-    }
 
     /**
      * Initializes a new instance of the <code>ConstantExpression</code> class with the specified value.

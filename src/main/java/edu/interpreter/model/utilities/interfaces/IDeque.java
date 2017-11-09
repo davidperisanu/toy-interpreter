@@ -1,4 +1,4 @@
-package edu.interpreter.model.utilities;
+package edu.interpreter.model.utilities.interfaces;
 
 import java.util.ArrayList;
 import java.util.ListIterator;

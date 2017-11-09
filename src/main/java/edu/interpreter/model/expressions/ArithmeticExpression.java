@@ -1,8 +1,8 @@
 package edu.interpreter.model.expressions;
 
-import edu.interpreter.model.utilities.IDictionary;
 import edu.interpreter.model.utilities.exceptions.DivideByZeroException;
 import edu.interpreter.model.utilities.exceptions.InvalidOperatorException;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
 
 /**
  * Represents an arithmetic expression composed of two <code>Expression</code> instances and one operator.
@@ -52,15 +52,6 @@ public final class ArithmeticExpression extends Expression {
     private Expression leftExpression;
     private Expression rightExpression;
     private Operator operator;
-
-    /**
-     * Initializes a new instance of the <code>ArithmeticExpression</code> class that has the default values.
-     */
-    public ArithmeticExpression() {
-        leftExpression = new ConstantExpression();
-        operator = Operator.Addition;
-        rightExpression = new ConstantExpression();
-    }
 
     /**
      * Initializes a new instance of the <code>ArithmeticExpression</code> class with the specified values.

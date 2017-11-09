@@ -3,7 +3,7 @@ package edu.interpreter.model.statements;
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.expressions.ArithmeticExpression;
 import edu.interpreter.model.expressions.Expression;
-import edu.interpreter.model.utilities.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
 
 /**
  * Represents an assignment statement.
@@ -12,14 +12,6 @@ import edu.interpreter.model.utilities.IDictionary;
 public final class AssignmentStatement extends Statement {
     private String variableName;
     private Expression expression;
-
-    /**
-     * Initializes a new instance of the <code>AssignmentStatement</code> class that has the default values.
-     */
-    public AssignmentStatement() {
-        variableName = "";
-        expression = null;
-    }
 
     /**
      * Initializes a new instance of the <code>AssignmentStatement</code> class with the specified values.

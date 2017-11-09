@@ -1,6 +1,6 @@
 package edu.interpreter.model.expressions;
 
-import edu.interpreter.model.utilities.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
 
 /**
  * Represents a generic expression.

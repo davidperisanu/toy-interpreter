@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
+import edu.interpreter.model.utilities.interfaces.IDeque;
 
 /**
  * Represents a double-ended-queue that supports element insertion and removal at both ends.

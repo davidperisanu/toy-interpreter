@@ -5,35 +5,35 @@ import java.util.HashMap;
 import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
-import edu.interpreter.model.utilities.interfaces.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IFileTable;
 
 /**
- * Represents a collection of keys and values.
+ * Represents a file table of keys and values.
  * @author David Perisanu
  */
-public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
+public class FileTable<Key, Value> implements IFileTable<Key, Value> {
     private HashMap<Key, Value> container;
 
     /**
-     * Initializes a new instance of the <code>Dictionary<></code> class that is empty and has the default initial capacity.
+     * Initializes a new instance of the <code>FileTable<></code> class that is empty and has the default initial capacity.
      */
-    public Dictionary() {
+    public FileTable() {
         container = new HashMap<>();
     }
 
     /**
-     * Initializes a new instance of the <code>Dictionary<></code> class that is empty and has the specified initial capacity.
-     * @param capacity The initial number of elements that the <code>Dictionary<></code> can contain.
+     * Initializes a new instance of the <code>FileTable<></code> class that is empty and has the specified initial capacity.
+     * @param capacity The initial number of elements that the <code>FileTable<></code> can contain.
      */
-    public Dictionary(int capacity) {
+    public FileTable(int capacity) {
         container = new HashMap<>(capacity);
     }
 
     /**
-     * Adds an element with the provided key and value to the <code>Dictionary<></code>.
+     * Adds an element with the provided key and value to the <code>FileTable<></code>.
      * If an element with the provided key exists, its value will be updated.
      * @param key The object to use as the key of the element to add.
-     * @param item The object to add to the <code>Dictionary<></code> elements collection.
+     * @param item The object to add to the <code>FileTable<></code> elements collection.
      */
     @Override
     public void add(Key key, Value value) {
@@ -41,8 +41,8 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     }
 
     /**
-     * Determines whether the <code>Dictionary<></code> contains the specified key.
-     * @param key The key to locate in the <code>Dictionary<></code>.
+     * Determines whether the <code>FileTable<></code> contains the specified key.
+     * @param key The key to locate in the <code>FileTable<></code>.
      * @return A boolean value which indicates whether the specified key exists or not.
      */
     @Override
@@ -51,10 +51,10 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     }
 
     /**
-     * Gets the value with the specified key from the <code>Dictionary<></code>.
+     * Gets the value with the specified key from the <code>FileTable<></code>.
      * @param key The key of the value to get.
      * @return The value of the provided key.
-     * @throws InvalidArgumentException if the key could not be found inside the <code>Dictionary<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>FileTable<></code>.
      */
     @Override
     public Value get(Key key) throws InvalidArgumentException {
@@ -65,9 +65,9 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     }
 
     /**
-     * Removes the value with the specified key from the <code>Dictionary<></code>.
+     * Removes the value with the specified key from the <code>FileTable<></code>.
      * @param key They of the element to remove.
-     * @throws InvalidArgumentException if the key could not be found inside the <code>Dictionary<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>FileTable<></code>.
      */
     @Override
     public void remove(Key key) throws InvalidArgumentException {
@@ -124,8 +124,8 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     }
 
     /**
-     * Gets a string representation of the <code>Dictionary<></code>.
-     * @return The string representation of the <code>Dictionary<></code>.
+     * Gets a string representation of the <code>FileTable<></code>.
+     * @return The string representation of the <code>FileTable<></code>.
      */
     @Override
     public String toString() {

@@ -11,10 +11,10 @@ import edu.interpreter.model.statements.PrintStatement;
 import edu.interpreter.model.statements.Statement;
 import edu.interpreter.model.utilities.Deque;
 import edu.interpreter.model.utilities.Dictionary;
-import edu.interpreter.model.utilities.IDeque;
-import edu.interpreter.model.utilities.IDictionary;
-import edu.interpreter.model.utilities.IList;
 import edu.interpreter.model.utilities.List;
+import edu.interpreter.model.utilities.interfaces.IDeque;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IList;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
@@ -22,7 +22,37 @@ import edu.interpreter.repository.Repository;
  * Some examples for second laboratory.
  * @author David Perisanu
  */
-public class Laboratory2 {
+public final class Laboratory2 {
+    /**
+     * <code>v = 2;</code>
+     * <code>print(v);</code>
+     */
+    public static void example1() {
+        // v = 2;
+        Statement assignStmt = new AssignmentStatement("v", new ConstantExpression(2));
+        // print(v);
+        Statement printStmt = new PrintStatement(new VariableExpression("v"));
+
+        IDeque<Statement> executionStack = new Deque<>();
+        IDictionary<String, Integer> symbolTable = new Dictionary<>();
+        IList<String> outputMessages = new List<>();
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null);
+        IRepository repository = new Repository();
+        Controller controller = new Controller(repository);
+
+        executionStack.pushFront(assignStmt);
+        executionStack.pushFront(printStmt);
+        
+        repository.add(programState);
+
+        try {
+            controller.executeAllSteps();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * <code>a = 2 + 3 * 5;</code>
      * <code>b = a - 4 / 2 + 7;</code>
@@ -39,42 +69,12 @@ public class Laboratory2 {
         IDeque<Statement> executionStack = new Deque<>();
         IDictionary<String, Integer> symbolTable = new Dictionary<>();
         IList<String> outputMessages = new List<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null);
         IRepository repository = new Repository();
         Controller controller = new Controller(repository);
 
         executionStack.pushFront(assignStmt1);
         executionStack.pushFront(assignStmt2);
-        executionStack.pushFront(printStmt);
-        
-        repository.add(programState);
-
-        try {
-            controller.executeAllSteps();
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * <code>v = 2;</code>
-     * <code>print(v);</code>
-     */
-    public static void example1() {
-        // v = 2;
-        Statement assignStmt = new AssignmentStatement("v", new ConstantExpression(2));
-        // print(v);
-        Statement printStmt = new PrintStatement(new VariableExpression("v"));
-
-        IDeque<Statement> executionStack = new Deque<>();
-        IDictionary<String, Integer> symbolTable = new Dictionary<>();
-        IList<String> outputMessages = new List<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages);
-        IRepository repository = new Repository();
-        Controller controller = new Controller(repository);
-
-        executionStack.pushFront(assignStmt);
         executionStack.pushFront(printStmt);
         
         repository.add(programState);

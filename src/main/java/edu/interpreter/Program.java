@@ -1,6 +1,7 @@
 package edu.interpreter;
 
-import edu.interpreter.examples.Laboratory2;
+import edu.interpreter.view.ConsoleMenu;
+import edu.interpreter.view.commands.ExitCommand;
 
 /**
  * The main entry point for the application.
@@ -8,10 +9,12 @@ import edu.interpreter.examples.Laboratory2;
  */
 public class Program {
     public static void main(String[] args) {
-        System.out.println("Laboratory 2, example 1: ");
-        Laboratory2.example1();
+        ConsoleMenu menu;
 
-        System.out.println("\nLaboratory 2, example 2: ");
-        Laboratory2.example2();
+        menu = new ConsoleMenu();
+
+        menu.add(new ExitCommand("1", "Exit"));
+
+        menu.show();
     }
 }

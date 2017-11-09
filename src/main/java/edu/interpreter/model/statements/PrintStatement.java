@@ -2,8 +2,8 @@ package edu.interpreter.model.statements;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.expressions.Expression;
-import edu.interpreter.model.utilities.IDictionary;
-import edu.interpreter.model.utilities.IList;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
  * Represents a print statement.
@@ -11,13 +11,6 @@ import edu.interpreter.model.utilities.IList;
  */
 public final class PrintStatement extends Statement {
     private Expression expression;
-
-    /**
-     * Initializes a new instance of the <code>PrintStatement</code> class that has the default value.
-     */
-    public PrintStatement() {
-        expression = null;
-    }
 
     /**
      * Initializes a new instance of the <code>PrintStatement</code> class with the specified value.

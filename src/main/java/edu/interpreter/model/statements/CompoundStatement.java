@@ -1,7 +1,7 @@
 package edu.interpreter.model.statements;
 
 import edu.interpreter.model.ProgramState;
-import edu.interpreter.model.utilities.IDeque;
+import edu.interpreter.model.utilities.interfaces.IDeque;
 
 /**
  * Represents a compound statement.
@@ -10,14 +10,6 @@ import edu.interpreter.model.utilities.IDeque;
 public final class CompoundStatement extends Statement {
     private Statement firStatement;
     private Statement secondStatement;
-
-    /**
-     * Initializes a new instance of the <code>CompoundStatement</code> class that has the default values.
-     */
-    public CompoundStatement() {
-        firStatement = null;
-        secondStatement = null;
-    }
 
     /**
      * Initializes a new instance of the <code>CompoundStatement</code> class with the specified values.

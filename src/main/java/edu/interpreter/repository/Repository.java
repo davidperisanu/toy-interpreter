@@ -85,12 +85,14 @@ public class Repository implements IRepository {
             ProgramState programState;
             ListIterator<Statement> execStackIterator;
             ListIterator<String> symTableIterator, outputMsgsIterator;
+            ListIterator<Integer> fileTableIterator;
             String empty, categorySpace, categoryChildSpace;
 
             programState = container.get(0);
             execStackIterator = programState.executionStack().iteratorBack();
             symTableIterator = programState.symbolTable().keysIterator();
             outputMsgsIterator = programState.outputMessages().iterator();
+            fileTableIterator = programState.fileTable().keysIterator();
             empty = "= Empty =";
             categorySpace = "  ";
             categoryChildSpace = "    ";
@@ -132,6 +134,23 @@ public class Repository implements IRepository {
                 do
                     printWriter.println(categoryChildSpace + outputMsgsIterator.next());
                 while (outputMsgsIterator.hasNext());
+
+            // Empty line for the visual effect.
+            printWriter.println();
+
+            // Print file table.
+            printWriter.println(categorySpace + "File table:");
+            if (!fileTableIterator.hasNext())
+                printWriter.println(categoryChildSpace + empty);
+            else {
+                Integer key;
+
+                do {
+                    key = fileTableIterator.next();
+                    printWriter.println(categoryChildSpace + key + " -> " + programState.fileTable().get(key).toString().replace("(", "(\"").replace(", ", "\", "));
+                }
+                while (fileTableIterator.hasNext());
+            }
             
             // Separator for the visual effect.
             printWriter.println("-----------------------------------------------");

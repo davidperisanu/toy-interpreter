@@ -1,7 +1,7 @@
 package edu.interpreter.model.expressions;
 
-import edu.interpreter.model.utilities.IDictionary;
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
+import edu.interpreter.model.utilities.interfaces.IDictionary;
 
 /**
  * Represents a variable expression.
@@ -9,13 +9,6 @@ import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
  */
 public final class VariableExpression extends Expression {
     private String variableName;
-
-    /**
-     * Initializes a new instance of the <code>VariableExpression</code> class that has the default value.
-     */
-    public VariableExpression() {
-        variableName = "";
-    }
 
     /**
      * Initializes a new instance of the <code>VariableExpression</code> class with the specified value.
