@@ -1,5 +1,8 @@
 package edu.interpreter.repository;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
 
@@ -20,4 +23,23 @@ public interface IRepository {
      * @throws InvalidOperationException if the <code>IRepository</code> is empty.
      */
     public ProgramState getProgramState() throws InvalidOperationException;
+
+    /**
+     * Gets the path of the logging file.
+     * @return The path of the logging file.
+     */
+    public String logFilePath();
+
+    /**
+     * Sets the path for the logging file.
+     * @param logFilePath The path for the logging file.
+     */
+    public void logFilePath(String logFilePath);
+
+    /**
+     * Logs the execution state of the current <code>ProgramState</code>.
+     * @throws FileNotFoundException if the file path is not valid.
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     */
+    public void logProgramStateExecution() throws FileNotFoundException, IOException;
 }

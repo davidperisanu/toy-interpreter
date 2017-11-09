@@ -1,6 +1,8 @@
 package edu.interpreter.model.utilities;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
 
@@ -95,6 +97,38 @@ public class Deque<T> implements IDeque<T> {
             throw new InvalidOperationException("Deque is empty.");
 
         return container.getLast();
+    }
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing elements.
+     * @return An iterable <code>ArrayList<></code> of all the existing elements.
+     */
+    @Override
+    public ArrayList<T> all() {
+        ArrayList<T> array = new ArrayList<>(container.size());
+
+        for (T item : container)
+            array.add(item);
+        
+        return array;
+    }
+
+    /**
+     * Gets a front-to-back <code>ListIterator<></code>.
+     * @return A front-to-back <code>ListIterator<></code>.
+     */
+    @Override
+    public ListIterator<T> iteratorFront() {
+        return all().listIterator();
+    }
+
+    /**
+     * Gets a back-to-front <code>ListIterator<></code>.
+     * @return A back-to-front <code>ListIterator<></code>.
+     */
+    @Override
+    public ListIterator<T> iteratorBack() {
+        return ((ArrayList<T>)all()).listIterator(container.size());
     }
 
     /**

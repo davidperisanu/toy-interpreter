@@ -1,5 +1,8 @@
 package edu.interpreter.model.utilities;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 
 /**
@@ -36,4 +39,28 @@ public interface IDictionary<Key, Value> {
      * @throws InvalidArgumentException if the key could not be found inside the<code>IDictionary<></code>.
      */
     public void remove(Key key) throws InvalidArgumentException;
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing keys.
+     * @return An iterable <code>ArrayList<></code> of all the existing keys.
+     */
+    public ArrayList<Key> allKeys();
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing values.
+     * @return An iterable <code>ArrayList<></code> of all the existing values.
+     */
+    public ArrayList<Value> allValues();
+
+    /**
+     * Gets a <code>ListIterator<></code> for the keys.
+     * @return A <code>ListIterator<></code> for the keys.
+     */
+    public ListIterator<Key> keysIterator();
+
+    /**
+     * Gets a <code>ListIterator<></code> for the values.
+     * @return A <code>ListIterator<></code> for the values.
+     */
+    public ListIterator<Value> valuesIterator();
 }

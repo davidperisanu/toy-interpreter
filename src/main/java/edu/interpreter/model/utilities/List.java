@@ -1,6 +1,7 @@
 package edu.interpreter.model.utilities;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.IndexOutOfRangeException;
 
@@ -97,6 +98,38 @@ public class List<T> implements IList<T> {
             throw new IndexOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
 
             container.remove(index);
+    }
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing elements.
+     * @return An iterable <code>ArrayList<></code> of all the existing elements.
+     */
+    @Override
+    public ArrayList<T> all() {
+        return container;
+    }
+
+    /**
+     * Gets a <code>ListIterator<></code>.
+     * @return A <code>ListIterator<></code>.
+     */
+    @Override
+    public ListIterator<T> iterator() {
+        return container.listIterator();
+    }
+    
+    /**
+     * Gets a <code>ListIterator<></code> starting at the specified index.
+     * @param index Iterator starting position.
+     * @return A <code>ListIterator<></code> starting at the specified index.
+     * @throws IndexOutOfRangeExceptionif the index is outside the bounds of the <code>IList<></code>.
+     */
+    @Override
+    public ListIterator<T> iterator(int index) throws IndexOutOfRangeException {
+        if (index < -1 || index > container.size())
+            throw new IndexOutOfRangeException("Index was outside the expected bounds.");
+
+        return container.listIterator(index);
     }
 
     /**

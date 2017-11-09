@@ -4,3 +4,9 @@
 bin/
 build/
 gradle/
+
+# Generated text files
+*.txt
+
+# Generated output files
+*.out

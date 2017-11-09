@@ -1,6 +1,8 @@
 package edu.interpreter.model.utilities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 
@@ -72,6 +74,52 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
             throw new InvalidArgumentException("No key was found.");
 
         container.remove(key);
+    }
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing keys.
+     * @return An iterable <code>ArrayList<></code> of all the existing keys.
+     */
+    @Override
+    public ArrayList<Key> allKeys() {
+        ArrayList<Key> array = new ArrayList<>(container.size());
+
+        for (Key key : container.keySet())
+            array.add(key);
+
+        return array;
+    }
+
+    /**
+     * Gets an iterable <code>ArrayList<></code> of all the existing values.
+     * @return An iterable <code>ArrayList<></code> of all the existing values.
+     */
+    @Override
+    public ArrayList<Value> allValues() {
+        ArrayList<Value> array = new ArrayList<>(container.size());
+
+        for (Value value : container.values())
+            array.add(value);
+
+        return array;
+    }
+
+    /**
+     * Gets a <code>ListIterator<></code> for the keys.
+     * @return A <code>ListIterator<></code> for the keys.
+     */
+    @Override
+    public ListIterator<Key> keysIterator() {
+        return allKeys().listIterator();
+    }
+
+    /**
+     * Gets a <code>ListIterator<></code> for the values.
+     * @return A <code>ListIterator<></code> for the values.
+     */
+    @Override
+    public ListIterator<Value> valuesIterator() {
+        return allValues().listIterator();
     }
 
     /**
