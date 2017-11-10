@@ -35,7 +35,7 @@ public final class ConditionalStatement extends Statement {
         int condition;
         IDeque<Statement> executionStack;
 
-        condition = expression.evaluate(programState.symbolTable());
+        condition = expression.evaluate(programState.symbolTable(), programState.heap());
         executionStack = programState.executionStack();
 
         if (condition != 0) // true

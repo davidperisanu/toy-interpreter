@@ -4,42 +4,43 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
-import edu.interpreter.model.utilities.interfaces.IFileTable;
+import edu.interpreter.model.utilities.interfaces.IHeap;
 
 /**
- * Represents a file table of keys and values.
+ * Represents a heap of keys and values.
  * @author David Perisanu
  */
-public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFileTable<Key, Value> {
+public class Heap<Key, Value> extends Dictionary<Key, Value> implements IHeap<Key, Value> {
     /**
-     * Initializes a new instance of the <code>FileTable<></code> class that is empty and has the default initial capacity.
+     * Initializes a new instance of the <code>Heap<></code> class that is empty and has the default initial capacity.
      */
-    public FileTable() {
+    public Heap() {
         super();
     }
 
     /**
-     * Initializes a new instance of the <code>FileTable<></code> class that is empty and has the specified initial capacity.
-     * @param capacity The initial number of elements that the <code>FileTable<></code> can contain.
+     * Initializes a new instance of the <code>Heap<></code> class that is empty and has the specified initial capacity.
+     * @param capacity The initial number of elements that the <code>Heap<></code> can contain.
      */
-    public FileTable(int capacity) {
+    public Heap(int capacity) {
         super(capacity);
     }
 
     /**
-     * Adds an element with the provided key and value to the <code>FileTable<></code>.
+     * Adds an element with the provided key and value to the <code>Heap<></code>.
      * If an element with the provided key exists, its value will be updated.
      * @param key The object to use as the key of the element to add.
-     * @param item The object to add to the <code>FileTable<></code> elements collection.
+     * @param item The object to add to the <code>Heap<></code> elements collection.
      */
     @Override
     public void add(Key key, Value value) {
+        //container.put(key, value);
         super.add(key, value);
     }
 
     /**
-     * Determines whether the <code>FileTable<></code> contains the specified key.
-     * @param key The key to locate in the <code>FileTable<></code>.
+     * Determines whether the <code>Heap<></code> contains the specified key.
+     * @param key The key to locate in the <code>Heap<></code>.
      * @return A boolean value which indicates whether the specified key exists or not.
      */
     @Override
@@ -48,10 +49,10 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
     }
 
     /**
-     * Gets the value with the specified key from the <code>FileTable<></code>.
+     * Gets the value with the specified key from the <code>Heap<></code>.
      * @param key The key of the value to get.
      * @return The value of the provided key.
-     * @throws InvalidArgumentException if the key could not be found inside the <code>FileTable<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>Heap<></code>.
      */
     @Override
     public Value get(Key key) throws InvalidArgumentException {
@@ -59,9 +60,9 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
     }
 
     /**
-     * Removes the value with the specified key from the <code>FileTable<></code>.
+     * Removes the value with the specified key from the <code>Heap<></code>.
      * @param key They of the element to remove.
-     * @throws InvalidArgumentException if the key could not be found inside the <code>FileTable<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>Heap<></code>.
      */
     @Override
     public void remove(Key key) throws InvalidArgumentException {
@@ -105,8 +106,8 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
     }
 
     /**
-     * Gets the number of elements inside the <code>FileTable<></code>.
-     * @return The number of elements inside the <code>FileTable<></code>.
+     * Gets the number of elements inside the <code>Heap<></code>.
+     * @return The number of elements inside the <code>Heap<></code>.
      */
     @Override
     public int size() {
@@ -114,8 +115,8 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
     }
 
     /**
-     * Gets a string representation of the <code>FileTable<></code>.
-     * @return The string representation of the <code>FileTable<></code>.
+     * Gets a string representation of the <code>Heap<></code>.
+     * @return The string representation of the <code>Heap<></code>.
      */
     @Override
     public String toString() {

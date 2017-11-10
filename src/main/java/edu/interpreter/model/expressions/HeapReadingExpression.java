@@ -5,38 +5,39 @@ import edu.interpreter.model.utilities.interfaces.IDictionary;
 import edu.interpreter.model.utilities.interfaces.IHeap;
 
 /**
- * Represents a variable expression.
+ * Represents a head reading expression.
  * @author David Perisanu
  */
-public final class VariableExpression extends Expression {
+public class HeapReadingExpression extends Expression {
     private String variableName;
 
     /**
-     * Initializes a new instance of the <code>VariableExpression</code> class with the specified value.
-     * @param variableName The variable name of the <code>VariableExpression</code>.
+     * Initializes a new instance of the <code>HeapReadingExpression</code> class with the specified value.
+     * @param variableName Variable name that refers the heap alocated space.
      */
-    public VariableExpression(String variableName) {
+    public HeapReadingExpression(String variableName) {
         this.variableName = variableName;
     }
 
     /**
-     * Computes the value of the <code>VariableExpression</code>.
+     * Computes the value of the <code>HeapReadingExpression</code>.
      * @param symbolTable Symbol table of the <code>ProgramState</code>.
      * @param heap Heap of the <code>ProgramState</code>.
      * @return The value of the <code>VariableExpression</code>.
      * @throws InvalidArgumentException if the key could not be found inside the <code>IDictionary<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>IHeap<></code>.
      */
     @Override
     public int evaluate(IDictionary<String, Integer> symbolTable, IHeap<Integer, Integer> heap) throws InvalidArgumentException {
-        return symbolTable.get(variableName);
+        return heap.get(symbolTable.get(variableName));
     }
 
     /**
-     * Gets a string representation of the <code>VariableExpression</code>.
-     * @return The string representation of the <code>VariableExpression</code>.
+     * Gets a string representation of the <code>HeapReadingExpression</code>.
+     * @return The string representation of the <code>HeapReadingExpression</code>.
      */
     @Override
     public String toString() {
-        return variableName;
+        return "readHeap(" + variableName + ");";
     }
 }

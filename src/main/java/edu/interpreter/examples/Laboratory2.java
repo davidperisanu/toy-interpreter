@@ -36,7 +36,7 @@ public final class Laboratory2 {
         IDeque<Statement> executionStack = new Deque<>();
         IDictionary<String, Integer> symbolTable = new Dictionary<>();
         IList<String> outputMessages = new List<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null, null);
         IRepository repository = new Repository();
         Controller controller = new Controller(repository);
 
@@ -69,7 +69,7 @@ public final class Laboratory2 {
         IDeque<Statement> executionStack = new Deque<>();
         IDictionary<String, Integer> symbolTable = new Dictionary<>();
         IList<String> outputMessages = new List<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, null, null);
         IRepository repository = new Repository();
         Controller controller = new Controller(repository);
 

@@ -1,5 +1,7 @@
 package edu.interpreter.view.commands;
 
+import java.util.Scanner;
+
 /**
  * Represents a console menu command.
  * @author David Perisanu
@@ -33,6 +35,7 @@ public abstract class Command {
 
     /**
      * Executes the <code>Command</code>.
+     * @param scanner Console input scanner.
      */
-    public abstract void execute();
+    public abstract void execute(Scanner scanner);
 }

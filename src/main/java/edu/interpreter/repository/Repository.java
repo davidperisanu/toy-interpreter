@@ -85,7 +85,7 @@ public class Repository implements IRepository {
             ProgramState programState;
             ListIterator<Statement> execStackIterator;
             ListIterator<String> symTableIterator, outputMsgsIterator;
-            ListIterator<Integer> fileTableIterator;
+            ListIterator<Integer> fileTableIterator, heapIterator;
             String empty, categorySpace, categoryChildSpace;
 
             programState = container.get(0);
@@ -93,6 +93,7 @@ public class Repository implements IRepository {
             symTableIterator = programState.symbolTable().keysIterator();
             outputMsgsIterator = programState.outputMessages().iterator();
             fileTableIterator = programState.fileTable().keysIterator();
+            heapIterator = programState.heap().keysIterator();
             empty = "= Empty =";
             categorySpace = "  ";
             categoryChildSpace = "    ";
@@ -150,6 +151,23 @@ public class Repository implements IRepository {
                     printWriter.println(categoryChildSpace + key + " -> " + programState.fileTable().get(key).toString().replace("(", "(\"").replace(", ", "\", "));
                 }
                 while (fileTableIterator.hasNext());
+            }
+
+            // Empty line for the visual effect.
+            printWriter.println();
+
+            // Print heap.
+            printWriter.println(categorySpace + "Heap:");
+            if (!heapIterator.hasNext())
+                printWriter.println(categoryChildSpace + empty);
+            else {
+                Integer key;
+
+                do {
+                    key = heapIterator.next();
+                    printWriter.println(categoryChildSpace + key + " -> " + programState.heap().get(key));
+                }
+                while (heapIterator.hasNext());
             }
             
             // Separator for the visual effect.

@@ -6,11 +6,13 @@ import edu.interpreter.model.statements.Statement;
 import edu.interpreter.model.utilities.Deque;
 import edu.interpreter.model.utilities.Dictionary;
 import edu.interpreter.model.utilities.FileTable;
+import edu.interpreter.model.utilities.Heap;
 import edu.interpreter.model.utilities.List;
 import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.interfaces.IDeque;
 import edu.interpreter.model.utilities.interfaces.IDictionary;
 import edu.interpreter.model.utilities.interfaces.IFileTable;
+import edu.interpreter.model.utilities.interfaces.IHeap;
 import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
@@ -22,6 +24,7 @@ public class ProgramState {
     private IDictionary<String, Integer> symbolTable;
     private IList<String> outputMessages;
     private IFileTable<Integer, Pair<String, BufferedReader>> fileTable;
+    private IHeap<Integer, Integer> heap;
 
     /**
      * Initializes a new instance of the <code>ProgramState</code> class that has the default values.
@@ -31,6 +34,7 @@ public class ProgramState {
         symbolTable = new Dictionary<>();
         outputMessages = new List<>();
         fileTable = new FileTable<>();
+        heap = new Heap<>();
     }
 
     /**
@@ -40,11 +44,12 @@ public class ProgramState {
      * @param outputMessages List of outputed messages of the <code>ProgramState</code>.
      * @param fileTable File table of the <code>ProgramState</code>.
      */
-    public ProgramState(IDeque<Statement> executionStack, IDictionary<String, Integer> symbolTable, IList<String> outputMessages, IFileTable<Integer, Pair<String, BufferedReader>> fileTable) {
+    public ProgramState(IDeque<Statement> executionStack, IDictionary<String, Integer> symbolTable, IList<String> outputMessages, IFileTable<Integer, Pair<String, BufferedReader>> fileTable, IHeap<Integer, Integer> heap) {
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.outputMessages = outputMessages;
         this.fileTable = fileTable;
+        this.heap = heap;
     }
 
     /**
@@ -80,6 +85,14 @@ public class ProgramState {
     }
 
     /**
+     * Gets the heap of the <code>ProgramState</code>.
+     * @return The heap of the <code>ProgramState</code>.
+     */
+    public IHeap<Integer, Integer> heap() {
+        return heap;
+    }
+
+    /**
      * Gets a string representation of the <code>ProgramState</code>.
      * @return The string representation of the <code>ProgramState</code>.
      */
@@ -90,7 +103,8 @@ public class ProgramState {
         stringBuilder.append("Execution stack: " + executionStack.toString().replace(",", "") + "\n");
         stringBuilder.append("Symbol table: " + symbolTable + "\n");
         stringBuilder.append("Output messages: " + outputMessages + "\n");
-        stringBuilder.append("File table: " + fileTable.toString().replace("(", "(\"").replace(", ", "\", ") + "\n");
+        stringBuilder.append("File table: " + fileTable.toString().replace("(", "(\"").replace(", ", "\", ") + "\n");   // Adds "" to filenames.
+        stringBuilder.append("Heap: " + heap.toString() + "\n");
 
         return stringBuilder.toString();
     }

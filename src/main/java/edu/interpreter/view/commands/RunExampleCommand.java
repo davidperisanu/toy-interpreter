@@ -1,6 +1,9 @@
 package edu.interpreter.view.commands;
 
+import java.util.Scanner;
+
 import edu.interpreter.controller.Controller;
+import edu.interpreter.repository.IRepository;
 
 /**
  * Represents an example command.
@@ -24,8 +27,15 @@ public class RunExampleCommand extends Command {
      * Executes the <code>RunExampleCommand</code>.
      */
     @Override
-    public void execute() {
+    public void execute(Scanner scanner) {
         try {
+            IRepository repository = controller.repository();
+
+            if (repository.logFilePath().length() == 0) {
+                System.out.print("Repository log file path: ");
+                repository.logFilePath(scanner.nextLine());
+            }
+
             controller.executeAllSteps();
         }
         catch (Exception e) {

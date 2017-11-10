@@ -124,6 +124,15 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     }
 
     /**
+     * Gets the number of elements inside the <code>Dictionary<></code>.
+     * @return The number of elements inside the <code>Dictionary<></code>.
+     */
+    @Override
+    public int size() {
+        return container.size();
+    }
+
+    /**
      * Gets a string representation of the <code>Dictionary<></code>.
      * @return The string representation of the <code>Dictionary<></code>.
      */

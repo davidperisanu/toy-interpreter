@@ -11,32 +11,32 @@ import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
  */
 public interface IFileTable<Key, Value> {
     /**
-     * Adds an element with the provided key and value to the<code>IFileTable<></code>.
+     * Adds an element with the provided key and value to the <code>IFileTable<></code>.
      * If an element with the provided key exists, its value will be updated.
      * @param key The object to use as the key of the element to add.
-     * @param item The object to add to the<code>IFileTable<></code> elements collection.
+     * @param item The object to add to the <code>IFileTable<></code> elements collection.
      */
     public void add(Key key, Value value);
 
     /**
-     * Determines whether the<code>IFileTable<></code> contains the specified key.
-     * @param key The key to locate in the<code>IFileTable<></code>.
+     * Determines whether the <code>IFileTable<></code> contains the specified key.
+     * @param key The key to locate in the <code>IFileTable<></code>.
      * @return A boolean value which indicates whether the specified key exists or not.
      */
     public boolean contains(Key key);
 
     /**
-     * Gets the value with the specified key from the<code>IFileTable<></code>.
+     * Gets the value with the specified key from the <code>IFileTable<></code>.
      * @param key The key of the value to get.
      * @return The value of the provided key.
-     * @throws InvalidArgumentException if the key could not be found inside the<code>IFileTable<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>IFileTable<></code>.
      */
     public Value get(Key key) throws InvalidArgumentException;
 
     /**
-     * Removes the value with the specified key from the<code>IFileTable<></code>.
+     * Removes the value with the specified key from the <code>IFileTable<></code>.
      * @param key They of the element to remove.
-     * @throws InvalidArgumentException if the key could not be found inside the<code>IFileTable<></code>.
+     * @throws InvalidArgumentException if the key could not be found inside the <code>IFileTable<></code>.
      */
     public void remove(Key key) throws InvalidArgumentException;
 
@@ -63,4 +63,10 @@ public interface IFileTable<Key, Value> {
      * @return A <code>ListIterator<></code> for the values.
      */
     public ListIterator<Value> valuesIterator();
+
+    /**
+     * Gets the number of elements inside the <code>IFileTable<></code>.
+     * @return The number of elements inside the <code>IFileTable<></code>.
+     */
+    public int size();
 }

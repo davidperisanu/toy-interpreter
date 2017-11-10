@@ -34,7 +34,7 @@ public class CloseReadFileStatement extends Statement {
         int fileDescriptor;
 
         fileTable = programState.fileTable();
-        fileDescriptor = expression.evaluate(programState.symbolTable());
+        fileDescriptor = expression.evaluate(programState.symbolTable(), programState.heap());
         
         if (!fileTable.contains(fileDescriptor))
             throw new NotFoundException("File not found.");

@@ -46,7 +46,7 @@ public class ReadFileStatement extends Statement {
 
         symbolTable = programState.symbolTable();
         fileTable = programState.fileTable();
-        fileDescriptor = expression.evaluate(symbolTable);
+        fileDescriptor = expression.evaluate(symbolTable, programState.heap());
         line = null;
         readInt = 0;
 

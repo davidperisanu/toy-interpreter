@@ -1,6 +1,7 @@
 package edu.interpreter.model.expressions;
 
 import edu.interpreter.model.utilities.interfaces.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IHeap;
 
 /**
  * Represents a constant expression.
@@ -20,10 +21,11 @@ public final class ConstantExpression extends Expression {
     /**
      * Computes the value of the <code>ConstantExpression</code>.
      * @param symbolTable Symbol table of the <code>ProgramState</code>.
+     * @param heap Heap of the <code>ProgramState</code>.
      * @return The value of the <code>ConstantExpression</code>.
      */
     @Override
-    public int evaluate(IDictionary<String, Integer> symbolTable) {
+    public int evaluate(IDictionary<String, Integer> symbolTable, IHeap<Integer, Integer> heap) {
         return value;
     }
 

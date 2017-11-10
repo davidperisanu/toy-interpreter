@@ -43,7 +43,7 @@ public class ConsoleMenu {
 
             key = scanner.nextLine();
             try {
-                commands.get(key).execute();
+                commands.get(key).execute(scanner);
             }
             catch (InvalidArgumentException e) {
                 System.out.println();
@@ -56,7 +56,13 @@ public class ConsoleMenu {
      * Prints on the console menu options.
      */
     private void printMenu() {
+        String menuOptions;
+
+        menuOptions = "Available commands:\n";
+
         for (Command command : commands.allValues())
-            System.out.println(String.format("  %s. %s", command.key(),command.description()));
+            menuOptions += String.format("  %s. %s\n", command.key(),command.description());
+
+        System.out.print(menuOptions);
     }
 }

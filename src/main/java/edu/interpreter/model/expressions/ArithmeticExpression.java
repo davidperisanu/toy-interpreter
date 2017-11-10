@@ -3,6 +3,7 @@ package edu.interpreter.model.expressions;
 import edu.interpreter.model.utilities.exceptions.DivideByZeroException;
 import edu.interpreter.model.utilities.exceptions.InvalidOperatorException;
 import edu.interpreter.model.utilities.interfaces.IDictionary;
+import edu.interpreter.model.utilities.interfaces.IHeap;
 
 /**
  * Represents an arithmetic expression composed of two <code>Expression</code> instances and one operator.
@@ -66,16 +67,17 @@ public final class ArithmeticExpression extends Expression {
     /**
      * Computes the value of the <code>ArithmeticExpression</code>.
      * @param symbolTable Symbol table of the <code>ProgramState</code>.
+     * @param heap Heap of the <code>ProgramState</code>.
      * @return The value of the <code>ArithmeticExpression</code>.
      * @throws DivideByZeroException if an attempt of division by 0 is made.
      * @throws InvalidOperatorException if the operation of the <code>Operator</code> was not treated.
      */
     @Override
-    public int evaluate(IDictionary<String, Integer> symbolTable) throws DivideByZeroException, InvalidOperatorException {
+    public int evaluate(IDictionary<String, Integer> symbolTable, IHeap<Integer, Integer> heap) throws DivideByZeroException, InvalidOperatorException {
         int leftResult, rightResult;
 
-        leftResult = leftExpression.evaluate(symbolTable);
-        rightResult = rightExpression.evaluate(symbolTable);
+        leftResult = leftExpression.evaluate(symbolTable, heap);
+        rightResult = rightExpression.evaluate(symbolTable, heap);
 
         switch (operator) {
             case Addition:

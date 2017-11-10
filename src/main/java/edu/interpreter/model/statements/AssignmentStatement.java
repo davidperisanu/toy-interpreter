@@ -32,7 +32,7 @@ public final class AssignmentStatement extends Statement {
     public ProgramState execute(ProgramState programState) {
         IDictionary<String, Integer> symbolTable = programState.symbolTable();
         
-        symbolTable.add(variableName, expression.evaluate(symbolTable));
+        symbolTable.add(variableName, expression.evaluate(symbolTable, programState.heap()));
 
         return programState;
     }

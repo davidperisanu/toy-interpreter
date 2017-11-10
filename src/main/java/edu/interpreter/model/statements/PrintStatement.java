@@ -33,7 +33,7 @@ public final class PrintStatement extends Statement {
         symbolTable = programState.symbolTable();
         outputMessages = programState.outputMessages();
 
-        outputMessages.add(Integer.toString(expression.evaluate(symbolTable)));
+        outputMessages.add(Integer.toString(expression.evaluate(symbolTable, programState.heap())));
 
         return programState;
     }

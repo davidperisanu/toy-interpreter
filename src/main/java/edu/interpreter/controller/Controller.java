@@ -36,6 +36,14 @@ public class Controller {
     }
 
     /**
+     * Gets the <code>IRepository</code> of the controller.
+     * @return The <code>IRepository</code> of the controller.
+     */
+    public IRepository repository() {
+        return repository;
+    }
+
+    /**
      * Executes the top-most <code>Statement</code> of the current <code>ProgramState</code>.
      */
     public void executeOneStep() {
