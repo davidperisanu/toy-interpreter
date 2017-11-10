@@ -139,4 +139,52 @@ public class Laboratory5 {
 
         return new Controller(repository);
     }
+
+    /**
+     * <code>v = 10;</code>
+     * <code>new(v, 20);</code>
+     * <code>new(a, 22);</code>
+     * <code>writeHeap(a, 30);</code>
+     * <code>print(a);</code>
+     * <code>print(readHeap(a));</code>
+     * <code>a = 0;</code>
+     */
+    public static Controller example4() {
+        AssignmentStatement assignStmt1, assignStmt2;
+        HeapAllocationStatement heapAllocStmt1, heapAllocStmt2;
+        HeapWritingStatement heapWriteStmt;
+        PrintStatement printStmt1, printStmt2;
+        IDeque<Statement> executionStack;
+        IRepository repository;
+
+        // v = 10;
+        assignStmt1 = new AssignmentStatement("v", new ConstantExpression(10));
+        // new(v, 20);
+        heapAllocStmt1 = new HeapAllocationStatement("v", new ConstantExpression(20));
+        // new(a, 22);
+        heapAllocStmt2 = new HeapAllocationStatement("a", new ConstantExpression(22));
+        // writeHeap(a, 30);
+        heapWriteStmt = new HeapWritingStatement("a", new ConstantExpression(30));
+        // print(a);
+        printStmt1 = new PrintStatement(new VariableExpression("a"));
+        // print(readHeap(a));
+        printStmt2 = new PrintStatement(new HeapReadingExpression("a"));
+        // a = 0;
+        assignStmt2 = new AssignmentStatement("a", new ConstantExpression(0));
+
+        executionStack = new Deque<>();
+        repository = new Repository();
+
+        executionStack.pushFront(assignStmt1);
+        executionStack.pushFront(heapAllocStmt1);
+        executionStack.pushFront(heapAllocStmt2);
+        executionStack.pushFront(heapWriteStmt);
+        executionStack.pushFront(printStmt1);
+        executionStack.pushFront(printStmt2);
+        executionStack.pushFront(assignStmt2);
+
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+
+        return new Controller(repository);
+    }
 }

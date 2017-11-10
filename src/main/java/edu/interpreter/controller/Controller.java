@@ -7,9 +7,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import edu.interpreter.model.ProgramState;
+import edu.interpreter.model.utilities.Heap;
+import edu.interpreter.model.utilities.interfaces.IHeap;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
@@ -87,6 +93,9 @@ public class Controller {
 
             executeOneStep();
 
+            // Get rid of the garbage (heap addresses that are not refered by any symbol table pair).
+            programState.heap(garbageCollector(programState.symbolTable().allValues(), programState.heap()));
+
             System.out.println(programState);
             if (repository.logFilePath().length() > 0)
                 // Log current program state representation.
@@ -99,5 +108,19 @@ public class Controller {
                 printWriter.println("           End of the program state");
                 printWriter.println("-----------------------------------------------");
             }
+    }
+
+    /**
+     * Constructs an <code>IHeap</code> that contains only the refered values.
+     * @return The constructed <code>IHeap</code>.
+     */
+    private IHeap<Integer, Integer> garbageCollector(Collection<Integer> symbolTableValues, IHeap<Integer, Integer> heap) {
+        IHeap<Integer, Integer> newHeap = new Heap<>(heap.size());
+
+        for (Integer key : heap.allKeys())
+            if (symbolTableValues.contains(key))
+                newHeap.add(key, heap.get(key));
+
+        return newHeap;
     }
 }

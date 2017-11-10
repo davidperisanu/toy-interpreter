@@ -93,6 +93,41 @@ public class ProgramState {
     }
 
     /**
+     * Sets the execution stack of the <code>ProgramState</code>.
+     */
+    public void executionStack(IDeque<Statement> executionStack) {
+        this.executionStack = executionStack;
+    }
+
+    /**
+     * Sets the symbol table of the <code>ProgramState</code>.
+     */
+    public void symbolTable(IDictionary<String, Integer> symbolTable) {
+        this.symbolTable = symbolTable;
+    }
+
+    /**
+     * Sets the list of outputed messages of the <code>ProgramState</code>.
+     */
+    public void outputMessages(IList<String> outputMessages) {
+        this.outputMessages = outputMessages;
+    }
+
+    /**
+     * Sets the file table of the <code>ProgramState</code>.
+     */
+    public void fileTable(IFileTable<Integer, Pair<String, BufferedReader>> fileTable) {
+        this.fileTable = fileTable;
+    }
+
+    /**
+     * Sets the heap of the <code>ProgramState</code>.
+     */
+    public void heap(IHeap<Integer, Integer> heap) {
+        this.heap = heap;
+    }
+
+    /**
      * Gets a string representation of the <code>ProgramState</code>.
      * @return The string representation of the <code>ProgramState</code>.
      */
