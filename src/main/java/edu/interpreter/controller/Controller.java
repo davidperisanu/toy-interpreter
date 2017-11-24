@@ -3,11 +3,9 @@ package edu.interpreter.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.utilities.Heap;
-import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.interfaces.IHeap;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;

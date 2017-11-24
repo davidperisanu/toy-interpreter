@@ -2,7 +2,6 @@ package edu.interpreter.model.utilities.interfaces;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Set;
 
 import edu.interpreter.model.utilities.Pair;
@@ -12,7 +11,7 @@ import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
  * Represents a generic collection of key/value pairs.
  * @author David Perisanu
  */
-public interface IDictionary<Key, Value> extends Map<Key, Value> {
+public interface IDictionary<Key, Value> {
     /**
      * Adds an element with the provided key and value to the <code>IDictionary<></code>.
      * If an element with the provided key exists, its value will be updated.
