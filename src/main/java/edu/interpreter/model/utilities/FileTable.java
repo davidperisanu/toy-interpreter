@@ -2,6 +2,7 @@ package edu.interpreter.model.utilities;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Set;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 import edu.interpreter.model.utilities.interfaces.IFileTable;
@@ -55,7 +56,12 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
      */
     @Override
     public Value get(Key key) throws InvalidArgumentException {
-        return super.get(key);
+        try {
+            return super.get(key);
+        }
+        catch (InvalidArgumentException e) {
+            throw new InvalidArgumentException("No key was found inside the file table.");
+        }
     }
 
     /**
@@ -65,7 +71,12 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
      */
     @Override
     public void remove(Key key) throws InvalidArgumentException {
-        super.remove(key);
+        try {
+            super.remove(key);
+        }
+        catch (InvalidArgumentException e) {
+            throw new InvalidArgumentException("No key was found inside the file table.");
+        }
     }
 
     /**
@@ -111,6 +122,15 @@ public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFi
     @Override
     public int size() {
         return super.size();
+    }
+
+    /**
+     * Gets a set containing all key/value pairs of the <code>FileTable<></code>.
+     * @return A set containing all key/value pairs of the <code>FileTable<></code>.
+     */
+    @Override
+    public Set<Pair<Key, Value>> entries() {
+        return super.entries();
     }
 
     /**

@@ -44,6 +44,6 @@ public final class PrintStatement extends Statement {
      */
     @Override
     public String toString() {
-        return "print(" + expression.toString() + ");";
+        return "print(" + expression + ");";
     }
 }

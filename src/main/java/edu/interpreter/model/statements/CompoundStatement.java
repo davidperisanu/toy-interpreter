@@ -44,6 +44,6 @@ public final class CompoundStatement extends Statement {
      */
     @Override
     public String toString() {
-        return firStatement.toString() + " " + secondStatement.toString();
+        return firStatement + " " + secondStatement;
     }
 }

@@ -2,6 +2,7 @@ package edu.interpreter.model.utilities;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Set;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 import edu.interpreter.model.utilities.interfaces.IHeap;
@@ -56,7 +57,12 @@ public class Heap<Key, Value> extends Dictionary<Key, Value> implements IHeap<Ke
      */
     @Override
     public Value get(Key key) throws InvalidArgumentException {
-        return super.get(key);
+        try {
+            return super.get(key);
+        }
+        catch (InvalidArgumentException e) {
+            throw new InvalidArgumentException("No key was found inside the heap.");
+        }
     }
 
     /**
@@ -66,7 +72,12 @@ public class Heap<Key, Value> extends Dictionary<Key, Value> implements IHeap<Ke
      */
     @Override
     public void remove(Key key) throws InvalidArgumentException {
-        super.remove(key);
+        try {
+            super.remove(key);
+        }
+        catch (InvalidArgumentException e) {
+            throw new InvalidArgumentException("No key was found inside the heap.");
+        }
     }
 
     /**
@@ -112,6 +123,14 @@ public class Heap<Key, Value> extends Dictionary<Key, Value> implements IHeap<Ke
     @Override
     public int size() {
         return super.size();
+    }
+
+    /**
+     * Gets a set containing all key/value pairs of the <code>Heap<></code>.
+     * @return A set containing all key/value pairs of the <code>Heap<></code>.
+     */
+    public Set<Pair<Key, Value>> entries() {
+        return super.entries();
     }
 
     /**

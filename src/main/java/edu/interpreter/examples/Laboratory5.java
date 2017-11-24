@@ -6,7 +6,7 @@ import edu.interpreter.model.expressions.ArithmeticExpression;
 import edu.interpreter.model.expressions.ConstantExpression;
 import edu.interpreter.model.expressions.HeapReadingExpression;
 import edu.interpreter.model.expressions.VariableExpression;
-import edu.interpreter.model.expressions.ArithmeticExpression.Operator;
+import edu.interpreter.model.expressions.ArithmeticExpression.ArithmeticOperator;
 import edu.interpreter.model.statements.AssignmentStatement;
 import edu.interpreter.model.statements.HeapAllocationStatement;
 import edu.interpreter.model.statements.HeapWritingStatement;
@@ -78,9 +78,9 @@ public class Laboratory5 {
         // new(a, 22);
         heapAllocStmt2 = new HeapAllocationStatement("a", new ConstantExpression(22));
         // print(100 + readHeap(v));
-        printStmt1 = new PrintStatement(new ArithmeticExpression(new ConstantExpression(100), Operator.Addition, new HeapReadingExpression("v")));
+        printStmt1 = new PrintStatement(new ArithmeticExpression(new ConstantExpression(100), ArithmeticOperator.Addition, new HeapReadingExpression("v")));
         // print(100 + readHeap(a));
-        printStmt2 = new PrintStatement(new ArithmeticExpression(new ConstantExpression(100), Operator.Addition, new HeapReadingExpression("a")));
+        printStmt2 = new PrintStatement(new ArithmeticExpression(new ConstantExpression(100), ArithmeticOperator.Addition, new HeapReadingExpression("a")));
 
         executionStack = new Deque<>();
         repository = new Repository();

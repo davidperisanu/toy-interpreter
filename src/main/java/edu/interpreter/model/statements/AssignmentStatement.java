@@ -46,7 +46,7 @@ public final class AssignmentStatement extends Statement {
         if (expression instanceof ArithmeticExpression)
             return variableName + " = " + removeParenthesis(expression.toString()) + ";";
 
-        return variableName + " = " + expression.toString() + ";";
+        return variableName + " = " + expression + ";";
     }
 
     /**

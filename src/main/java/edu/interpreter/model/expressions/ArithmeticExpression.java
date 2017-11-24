@@ -6,14 +6,14 @@ import edu.interpreter.model.utilities.interfaces.IDictionary;
 import edu.interpreter.model.utilities.interfaces.IHeap;
 
 /**
- * Represents an arithmetic expression composed of two <code>Expression</code> instances and one operator.
+ * Represents an arithmetic expression composed of two <code>Expression</code> instances and one arithmetical operator.
  * @author David Perisanu
  */
 public final class ArithmeticExpression extends Expression {
     /**
      * Represents an arithmetical operator.
      */
-    public enum Operator {
+    public enum ArithmeticOperator {
         /**
          * Represents the arithmetical addition operator.
          */
@@ -31,14 +31,14 @@ public final class ArithmeticExpression extends Expression {
          */
         Division('/');
 
-        private final char operator;
+        private final char arithmeticOperator;
 
         /**
-         * Initializes a new instance of the <code>Operator</code> enum with the specified value.
-         * @param operator A character representing an arithmtical operator.
+         * Initializes a new instance of the <code>ArithmeticOperator</code> enum with the specified value.
+         * @param arithmeticOperator A character representing an arithmtical operator.
          */
-        private Operator(final char operator) {
-            this.operator = operator;
+        private ArithmeticOperator(final char arithmeticOperator) {
+            this.arithmeticOperator = arithmeticOperator;
         }
 
         /**
@@ -46,21 +46,23 @@ public final class ArithmeticExpression extends Expression {
          * @return A character representing an arithmtical operator. 
          */
         public final char getOperator() {
-            return operator;
+            return arithmeticOperator;
         }
     }
 
     private Expression leftExpression;
+    private ArithmeticOperator arithmeticOperator;
     private Expression rightExpression;
-    private Operator operator;
 
     /**
      * Initializes a new instance of the <code>ArithmeticExpression</code> class with the specified values.
-     * @param value The constant value of the <code>ConstantExpression</code>.
+     * @param leftExpression Expression on the left of the arithmetic operator.
+     * @param arithmeticOperator Arithmeical operator.
+     * @param rightExpression Expression on the right of the arithmetic operator.
      */
-    public ArithmeticExpression(Expression leftExpression, Operator operator, Expression rightExpression) {
+    public ArithmeticExpression(Expression leftExpression, ArithmeticOperator arithmeticOperator, Expression rightExpression) {
         this.leftExpression = leftExpression;
-        this.operator = operator;
+        this.arithmeticOperator = arithmeticOperator;
         this.rightExpression = rightExpression;
     }
 
@@ -70,7 +72,7 @@ public final class ArithmeticExpression extends Expression {
      * @param heap Heap of the <code>ProgramState</code>.
      * @return The value of the <code>ArithmeticExpression</code>.
      * @throws DivideByZeroException if an attempt of division by 0 is made.
-     * @throws InvalidOperatorException if the operation of the <code>Operator</code> was not treated.
+     * @throws InvalidOperatorException if the operation of the <code>ArithmeticOperator</code> was not treated.
      */
     @Override
     public int evaluate(IDictionary<String, Integer> symbolTable, IHeap<Integer, Integer> heap) throws DivideByZeroException, InvalidOperatorException {
@@ -79,7 +81,7 @@ public final class ArithmeticExpression extends Expression {
         leftResult = leftExpression.evaluate(symbolTable, heap);
         rightResult = rightExpression.evaluate(symbolTable, heap);
 
-        switch (operator) {
+        switch (arithmeticOperator) {
             case Addition:
                 return leftResult + rightResult;
 
@@ -96,7 +98,7 @@ public final class ArithmeticExpression extends Expression {
                 return leftResult / rightResult;
             
             default:
-                throw new InvalidOperatorException("Operator operation has not been treated.");
+                throw new InvalidOperatorException("Arithmetical operator's operation has not been defined.");
         }
     }
 
@@ -106,6 +108,6 @@ public final class ArithmeticExpression extends Expression {
      */
     @Override
     public String toString() {
-        return "(" + leftExpression + " " + operator.getOperator() + " " + rightExpression + ")";
+        return "(" + leftExpression + " " + arithmeticOperator.getOperator() + " " + rightExpression + ")";
     }
 }

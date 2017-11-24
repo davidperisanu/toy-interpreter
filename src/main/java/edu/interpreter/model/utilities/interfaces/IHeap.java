@@ -2,7 +2,9 @@ package edu.interpreter.model.utilities.interfaces;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Set;
 
+import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 
 /**
@@ -65,8 +67,14 @@ public interface IHeap<Key, Value> {
     public ListIterator<Value> valuesIterator();
 
     /**
-     * Gets the number of elements inside the <code>IFileTable<></code>.
-     * @return The number of elements inside the <code>IFileTable<></code>.
+     * Gets the number of elements inside the <code>IHeap<></code>.
+     * @return The number of elements inside the <code>IHeap<></code>.
      */
     public int size();
+
+    /**
+     * Gets a set containing all key/value pairs of the <code>IHeap<></code>.
+     * @return A set containing all key/value pairs of the <code>IHeap<></code>.
+     */
+    public Set<Pair<Key, Value>> entries();
 }

@@ -1,11 +1,14 @@
 package edu.interpreter.repository;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ListIterator;
 
 import edu.interpreter.model.ProgramState;
@@ -72,6 +75,31 @@ public class Repository implements IRepository {
     @Override
     public void add(ProgramState programState) {
         container.add(programState);
+    }
+
+    /**
+     * Logs a header for the <code>ProgramState</code>.
+     * @throws FileNotFoundException if the file path is not valid.
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     */
+    @Override
+    public void logProgramStateExecutionHeader() throws FileNotFoundException, IOException {
+        try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
+            // If the repository log file has content => add two empty lines to split program states (for the visual effect).
+            if (new File(logFilePath).length() > 0) {
+                printWriter.println();
+                printWriter.println();
+            }
+
+            // Add ProgramState header.
+            printWriter.println("-----------------------------------------------");
+            printWriter.println("                 Program state");
+            printWriter.println("             [" + (new SimpleDateFormat("MM/dd/yyyy hh:mm:a")).format(new Date()) + "]");
+            printWriter.println("-----------------------------------------------");
+        }
+        catch (FileNotFoundException e) {
+            throw new FileNotFoundException("Logging file path is not valid.");
+        }
     }
 
     /**
@@ -171,6 +199,22 @@ public class Repository implements IRepository {
             }
             
             // Separator for the visual effect.
+            printWriter.println("-----------------------------------------------");
+        }
+        catch (FileNotFoundException e) {
+            throw new FileNotFoundException("Logging file path is not valid.");
+        }
+    }
+
+    /**
+     * Logs a header for the <code>ProgramState</code>.
+     * @throws FileNotFoundException if the file path is not valid.
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     */
+    @Override
+    public void logProgramStateExecutionFooter() throws FileNotFoundException, IOException {
+        try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
+            printWriter.println("           End of the program state");
             printWriter.println("-----------------------------------------------");
         }
         catch (FileNotFoundException e) {

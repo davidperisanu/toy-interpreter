@@ -37,9 +37,23 @@ public interface IRepository {
     public void logFilePath(String logFilePath);
 
     /**
+     * Logs a header for the <code>ProgramState</code>.
+     * @throws FileNotFoundException if the file path is not valid.
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     */
+    public void logProgramStateExecutionHeader() throws FileNotFoundException, IOException;
+
+    /**
      * Logs the execution state of the current <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
     public void logProgramStateExecution() throws FileNotFoundException, IOException;
+
+    /**
+     * Logs a header for the <code>ProgramState</code>.
+     * @throws FileNotFoundException if the file path is not valid.
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     */
+    public void logProgramStateExecutionFooter() throws FileNotFoundException, IOException;
 }

@@ -1,20 +1,13 @@
 package edu.interpreter.controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.utilities.Heap;
+import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.interfaces.IHeap;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
@@ -61,7 +54,7 @@ public class Controller {
     /**
      * Executes every <code>Statement</code> of the current <code>ProgramState</code>.
      * @throws FileNotFoundException if the logging file path is not valid.
-     * @throws IOException if the repository log file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
+     * @throws IOException if the repository log file exists but is a directory rather than a regular file, does not exist but cannot be created, cannot be opened for any other reason, or file could not be closed.
      */
     public void executeAllSteps() throws FileNotFoundException, IOException {
         ProgramState programState = repository.getProgramState();
@@ -70,19 +63,8 @@ public class Controller {
 
         // If the repository has a log file.
         if (repository.logFilePath().length() > 0) {
-            try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(repository.logFilePath(), true)))) {
-                // If the repository log file has content => add two empty lines to split program states (for the visual effect).
-                if (new File(repository.logFilePath()).length() > 0) {
-                        printWriter.println();
-                        printWriter.println();
-                }
-
-                // Add program state header.
-                printWriter.println("-----------------------------------------------");
-                printWriter.println("                 Program state");
-                printWriter.println("             [" + (new SimpleDateFormat("MM/dd/yyyy hh:mm:a")).format(new Date()) + "]");
-                printWriter.println("-----------------------------------------------");
-            }
+            // Add program state header.
+            repository.logProgramStateExecutionHeader();
         
             // Log initial program state representation.
             repository.logProgramStateExecution();
@@ -104,23 +86,50 @@ public class Controller {
 
         if (repository.logFilePath().length() > 0)
             // Add program state footer.
-            try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(repository.logFilePath(), true)))) {
-                printWriter.println("           End of the program state");
-                printWriter.println("-----------------------------------------------");
-            }
+            repository.logProgramStateExecutionFooter();
+
+            closeFiles(programState);
     }
 
     /**
      * Constructs an <code>IHeap</code> that contains only the refered values.
+     * @param @symbolTableValues A collection of all the values from symbol table.
+     * @param heap Heap of the <code>ProgramState</code>.
      * @return The constructed <code>IHeap</code>.
      */
     private IHeap<Integer, Integer> garbageCollector(Collection<Integer> symbolTableValues, IHeap<Integer, Integer> heap) {
         IHeap<Integer, Integer> newHeap = new Heap<>(heap.size());
 
-        for (Integer key : heap.allKeys())
-            if (symbolTableValues.contains(key))
-                newHeap.add(key, heap.get(key));
+        // for (Integer key : heap.allKeys())
+        //     if (symbolTableValues.contains(key))
+        //         newHeap.add(key, heap.get(key));
+        heap.entries().stream().filter(pair -> symbolTableValues.contains(pair.right())).forEach(pair -> newHeap.add(pair.left(), pair.right()));
 
         return newHeap;
+    }
+
+    /**
+     * Closes all open files of a <code>ProgramState</code> instance.
+     * @param programState The <code>ProgramState</code> instance.
+     * @throws IOException if any file could not be closed;
+     */
+    private void closeFiles(ProgramState programState) throws IOException {
+        long count = programState.fileTable().entries().stream().filter(
+            pair -> {
+                try {
+                    pair.right().right().close();
+                    programState.fileTable().remove(pair.left());
+                    return false;
+                }
+                catch(IOException e) {
+                    programState.fileTable().remove(pair.left());
+                    return true;
+                }
+            }).count();
+
+        if (count == 1)
+            throw new IOException("One file could not be closed.");
+        else if (count > 1)
+            throw new IOException(count + " files could not closed.");
     }
 }

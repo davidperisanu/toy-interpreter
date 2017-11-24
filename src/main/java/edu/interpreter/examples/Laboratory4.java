@@ -7,7 +7,7 @@ import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.expressions.ArithmeticExpression;
 import edu.interpreter.model.expressions.ConstantExpression;
 import edu.interpreter.model.expressions.VariableExpression;
-import edu.interpreter.model.expressions.ArithmeticExpression.Operator;
+import edu.interpreter.model.expressions.ArithmeticExpression.ArithmeticOperator;
 import edu.interpreter.model.statements.CloseReadFileStatement;
 import edu.interpreter.model.statements.CompoundStatement;
 import edu.interpreter.model.statements.ConditionalStatement;
@@ -101,7 +101,7 @@ public final class Laboratory4 {
         // openReadFile(var_f, "test.in");
         OpenReadFileStatement openFileStmt = new OpenReadFileStatement("var_f", "test.in");
         // readFile(var_f + 2, var_c);
-        ReadFileStatement readFileStmt1 = new ReadFileStatement(new ArithmeticExpression(new VariableExpression("var_f"), Operator.Addition, new ConstantExpression(2)), "var_c");
+        ReadFileStatement readFileStmt1 = new ReadFileStatement(new ArithmeticExpression(new VariableExpression("var_f"), ArithmeticOperator.Addition, new ConstantExpression(2)), "var_c");
         // print(var_c);
         PrintStatement printStmt1 = new PrintStatement(new VariableExpression("var_c"));
         // if (var_c) then { readFile(var_f, var_c); print(var_c) } else { print(0); }

@@ -2,7 +2,9 @@ package edu.interpreter.model.utilities.interfaces;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Set;
 
+import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 
 /**
@@ -69,4 +71,10 @@ public interface IFileTable<Key, Value> {
      * @return The number of elements inside the <code>IFileTable<></code>.
      */
     public int size();
+
+    /**
+     * Gets a set containing all key/value pairs of the <code>IFileTable<></code>.
+     * @return A set containing all key/value pairs of the <code>IFileTable<></code>.
+     */
+    public Set<Pair<Key, Value>> entries();
 }

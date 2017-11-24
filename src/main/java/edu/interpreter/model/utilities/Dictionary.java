@@ -2,7 +2,9 @@ package edu.interpreter.model.utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ListIterator;
+import java.util.Set;
 
 import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
 import edu.interpreter.model.utilities.interfaces.IDictionary;
@@ -130,6 +132,20 @@ public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     @Override
     public int size() {
         return container.size();
+    }
+
+    /**
+     * Gets a set containing all key/value pairs of the <code>Dictionary<></code>.
+     * @return A set containing all key/value pairs of the <code>Dictionary<></code>.
+     */
+    @Override
+    public Set<Pair<Key, Value>> entries() {
+        Set<Pair<Key, Value>> entries = new HashSet<>();
+
+        for (Key key : container.keySet())
+            entries.add(new Pair<Key, Value>(key, container.get(key)));
+
+        return entries;
     }
 
     /**

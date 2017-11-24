@@ -53,8 +53,8 @@ public final class ConditionalStatement extends Statement {
     @Override
     public String toString() {
         if (elseStatement == null)
-            return "if (" + expression.toString() + ") then { " + ifStatement.toString() + " }";
+            return "if (" + expression + ") then { " + ifStatement + " }";
 
-        return "if (" + expression.toString() + ") then { " + ifStatement.toString() + " } else { " + elseStatement.toString() + " }";
+        return "if (" + expression + ") then { " + ifStatement + " } else { " + elseStatement + " }";
     }
 }

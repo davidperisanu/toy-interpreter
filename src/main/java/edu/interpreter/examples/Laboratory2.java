@@ -3,7 +3,7 @@ package edu.interpreter.examples;
 import edu.interpreter.controller.Controller;
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.expressions.ArithmeticExpression;
-import edu.interpreter.model.expressions.ArithmeticExpression.Operator;
+import edu.interpreter.model.expressions.ArithmeticExpression.ArithmeticOperator;
 import edu.interpreter.model.expressions.ConstantExpression;
 import edu.interpreter.model.expressions.VariableExpression;
 import edu.interpreter.model.statements.AssignmentStatement;
@@ -60,9 +60,9 @@ public final class Laboratory2 {
      */
     public static void example2() {
         // a = 2 + 3 * 5;
-        Statement assignStmt1 = new AssignmentStatement("a", new ArithmeticExpression(new ConstantExpression(2), Operator.Addition, new ArithmeticExpression(new ConstantExpression(3), Operator.Multiplication, new ConstantExpression(5))));
+        Statement assignStmt1 = new AssignmentStatement("a", new ArithmeticExpression(new ConstantExpression(2), ArithmeticOperator.Addition, new ArithmeticExpression(new ConstantExpression(3), ArithmeticOperator.Multiplication, new ConstantExpression(5))));
         // b = a - 4 / 2 + 7;
-        Statement assignStmt2 = new AssignmentStatement("b", new ArithmeticExpression(new ArithmeticExpression(new VariableExpression("a"), Operator.Substraction, new ArithmeticExpression(new ConstantExpression(4), Operator.Division, new ConstantExpression(2))), Operator.Addition, new ConstantExpression(7)));
+        Statement assignStmt2 = new AssignmentStatement("b", new ArithmeticExpression(new ArithmeticExpression(new VariableExpression("a"), ArithmeticOperator.Substraction, new ArithmeticExpression(new ConstantExpression(4), ArithmeticOperator.Division, new ConstantExpression(2))), ArithmeticOperator.Addition, new ConstantExpression(7)));
         // print(b);
         Statement printStmt = new PrintStatement(new VariableExpression("b"));
 
