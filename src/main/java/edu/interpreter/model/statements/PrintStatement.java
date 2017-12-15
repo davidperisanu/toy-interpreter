@@ -35,7 +35,7 @@ public final class PrintStatement extends Statement {
 
         outputMessages.add(Integer.toString(expression.evaluate(symbolTable, programState.heap())));
 
-        return programState;
+        return null;
     }
 
     /**

@@ -8,27 +8,29 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.ListIterator;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.statements.Statement;
-import edu.interpreter.model.utilities.exceptions.IndexOutOfRangeException;
-import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
+import edu.interpreter.model.utilities.List;
+import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
  * Represents a <code>ProgramState</code> repository.
  * @author David Perisanu
  */
 public class Repository implements IRepository {
-    private ArrayList<ProgramState> container;
+    private IList<ProgramState> container;
     private String logFilePath;
+    private static String logFileSplitter = "-----------------------------------------------";
 
     /**
      * Initializes a new instance of the <code>Repository</code> class that is empty and has the default initial capacity.
      */
     public Repository() {
-        container = new ArrayList<>();
+        container = new List<>();
         logFilePath = "";
     }
 
@@ -37,7 +39,7 @@ public class Repository implements IRepository {
      * @param logFilePath The path for the logging file.
      */
     public Repository(String logFilePath) {
-        container = new ArrayList<>();
+        container = new List<>();
         this.logFilePath = logFilePath;
     }
 
@@ -46,7 +48,7 @@ public class Repository implements IRepository {
      * @param capacity The number of elements that the new repository can initially store.
      */
     public Repository(int capacity) {
-        container = new ArrayList<>(capacity);
+        container = new List<>(capacity);
         logFilePath = "";
     }
 
@@ -79,12 +81,15 @@ public class Repository implements IRepository {
 
     /**
      * Logs a header for the <code>ProgramState</code>.
+     * @param programState The <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
     @Override
-    public void logProgramStateExecutionHeader() throws FileNotFoundException, IOException {
+    public void logProgramStateExecutionHeader(ProgramState programState) throws FileNotFoundException, IOException {
         try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
+            String str;
+            
             // If the repository log file has content => add two empty lines to split program states (for the visual effect).
             if (new File(logFilePath).length() > 0) {
                 printWriter.println();
@@ -92,10 +97,11 @@ public class Repository implements IRepository {
             }
 
             // Add ProgramState header.
-            printWriter.println("-----------------------------------------------");
-            printWriter.println("                 Program state");
+            str = "Program state (" + programState.id() + ")";
+            printWriter.println(logFileSplitter);
+            printWriter.println(String.join("", Collections.nCopies((logFileSplitter.length() - str.length()) / 2, " ")) + str);   // Make sure 'Program state (<ID>)' will be centered.
             printWriter.println("             [" + (new SimpleDateFormat("MM/dd/yyyy hh:mm:a")).format(new Date()) + "]");
-            printWriter.println("-----------------------------------------------");
+            printWriter.println(logFileSplitter);
         }
         catch (FileNotFoundException e) {
             throw new FileNotFoundException("Logging file path is not valid.");
@@ -108,15 +114,13 @@ public class Repository implements IRepository {
      * @throws IOException if the logging file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
     @Override
-    public void logProgramStateExecution() throws FileNotFoundException, IOException {
+    public void logProgramStateExecution(ProgramState programState) throws FileNotFoundException, IOException {
         try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
-            ProgramState programState;
             ListIterator<Statement> execStackIterator;
             ListIterator<String> symTableIterator, outputMsgsIterator;
             ListIterator<Integer> fileTableIterator, heapIterator;
             String empty, categorySpace, categoryChildSpace;
 
-            programState = container.get(0);
             execStackIterator = programState.executionStack().iteratorBack();
             symTableIterator = programState.symbolTable().keysIterator();
             outputMsgsIterator = programState.outputMessages().iterator();
@@ -199,7 +203,7 @@ public class Repository implements IRepository {
             }
             
             // Separator for the visual effect.
-            printWriter.println("-----------------------------------------------");
+            printWriter.println(logFileSplitter);
         }
         catch (FileNotFoundException e) {
             throw new FileNotFoundException("Logging file path is not valid.");
@@ -208,14 +212,17 @@ public class Repository implements IRepository {
 
     /**
      * Logs a header for the <code>ProgramState</code>.
+     * @param programState The <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
     @Override
-    public void logProgramStateExecutionFooter() throws FileNotFoundException, IOException {
+    public void logProgramStateExecutionFooter(ProgramState programState) throws FileNotFoundException, IOException {
         try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
-            printWriter.println("           End of the program state");
-            printWriter.println("-----------------------------------------------");
+            String str = "End of the program state (" + programState.id() + ")";
+
+            printWriter.println(String.join("", Collections.nCopies((logFileSplitter.length() - str.length()) / 2, " ")) + str);    // Make sure 'End of the program state (<ID>)' is centered.
+            printWriter.println(logFileSplitter);
         }
         catch (FileNotFoundException e) {
             throw new FileNotFoundException("Logging file path is not valid.");
@@ -223,15 +230,20 @@ public class Repository implements IRepository {
     }
 
     /**
-     * Gets the current <code>ProgramState</code>.
-     * @return The current <code>ProgramState</code>.
-     * @throws IndexOutOfRangeException if the <code>Repository</code> is empty.
+     * Gets a list of all the <code>ProgramState</code> instances contained.
+     * @return A list of all the <code>ProgramState</code> instances contained.
      */
     @Override
-    public ProgramState getProgramState() throws InvalidOperationException {
-        if (container.isEmpty())
-            throw new InvalidOperationException("Repository is empty.");
-        
-        return container.get(0);
+    public IList<ProgramState> programStates() {
+        return container;
+    }
+
+    /**
+     * Sets the list of the <code>ProgramState</code> instances with a given one.
+     * @param states List of <code>ProgramState</code> instances.
+     */
+    @Override
+    public void programStates(IList<ProgramState> states) {
+        container = states;
     }
 }

@@ -65,7 +65,7 @@ public class OpenReadFileStatement extends Statement {
         fileTable.add(id, new Pair<String, BufferedReader>(filePath, bufferedReader));
         symbolTable.add(variableName, id);
 
-        return programState;
+        return null;
     }
 
      /**

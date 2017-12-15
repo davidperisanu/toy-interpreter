@@ -65,7 +65,7 @@ public class ReadFileStatement extends Statement {
 
         symbolTable.add(variableName, readInt);
 
-        return programState;
+        return null;
     }
 
     /**

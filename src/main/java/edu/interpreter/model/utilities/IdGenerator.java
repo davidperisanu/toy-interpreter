@@ -5,11 +5,10 @@ package edu.interpreter.model.utilities;
  * @author David Perisanu
  */
 public final class IdGenerator {
-    private static int id = 1;
-    private static long longId = 1L;
+    private static int id = 0;
+    private static long longId = 0L;
 
-    // Simulate static class.
-    private IdGenerator() { }
+    private IdGenerator() { }   // Simulate static class.
 
     /**
      * Generates a unique integral identifier.

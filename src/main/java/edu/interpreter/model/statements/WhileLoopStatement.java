@@ -33,7 +33,7 @@ public class WhileLoopStatement extends Statement {
             programState.executionStack().pushBack(statement);
         }
 
-        return programState;
+        return null;
     }
 
     /**

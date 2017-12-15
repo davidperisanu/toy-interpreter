@@ -72,4 +72,10 @@ public interface IList<T> {
      * @throws IndexOutOfRangeExceptionif the index is outside the bounds of the <code>IList<></code>.
      */
     public ListIterator<T> iterator(int index) throws IndexOutOfRangeException;
+
+    /**
+     * Gets the number of elements inside the <code>IList<></code>.
+     * @return The number of elements inside the <code>IList<></code>.
+     */
+    public int size();
 }

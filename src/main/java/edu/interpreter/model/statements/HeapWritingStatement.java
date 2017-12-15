@@ -42,7 +42,7 @@ public class HeapWritingStatement extends Statement {
 
         heap.add(symbolTable.get(variableName), expression.evaluate(symbolTable, heap));
         
-        return programState;
+        return null;
     }
 
     /**

@@ -7,6 +7,7 @@ import edu.interpreter.model.utilities.Deque;
 import edu.interpreter.model.utilities.Dictionary;
 import edu.interpreter.model.utilities.FileTable;
 import edu.interpreter.model.utilities.Heap;
+import edu.interpreter.model.utilities.IdGenerator;
 import edu.interpreter.model.utilities.List;
 import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.interfaces.IDeque;
@@ -20,6 +21,7 @@ import edu.interpreter.model.utilities.interfaces.IList;
  * @author David Perisanu
  */
 public class ProgramState {
+    private int id;
     private IDeque<Statement> executionStack;
     private IDictionary<String, Integer> symbolTable;
     private IList<String> outputMessages;
@@ -30,6 +32,7 @@ public class ProgramState {
      * Initializes a new instance of the <code>ProgramState</code> class that has the default values.
      */
     public ProgramState() {
+        id = IdGenerator.generateId();
         executionStack = new Deque<>();
         symbolTable = new Dictionary<>();
         outputMessages = new List<>();
@@ -45,11 +48,20 @@ public class ProgramState {
      * @param fileTable File table of the <code>ProgramState</code>.
      */
     public ProgramState(IDeque<Statement> executionStack, IDictionary<String, Integer> symbolTable, IList<String> outputMessages, IFileTable<Integer, Pair<String, BufferedReader>> fileTable, IHeap<Integer, Integer> heap) {
+        id = IdGenerator.generateId();
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.outputMessages = outputMessages;
         this.fileTable = fileTable;
         this.heap = heap;
+    }
+
+    /**
+     * Gets the unique <code>ProgramState</code> identificator.
+     * @return The unique <code>ProgramState</code> identificator.
+     */
+    public int id() {
+        return id;
     }
 
     /**
@@ -128,6 +140,21 @@ public class ProgramState {
     }
 
     /**
+     * Checks if the execution stack is empty or not.
+     * @return True if the execution stack is not empty, false otherwise.
+     */
+    public boolean notCompleted() {
+        return !executionStack.isEmpty();
+    }
+
+    /**
+     * Executes the top-most <code>Statement</code> of the <code>ProgramState</code>.
+     */
+    public ProgramState executeOneStep() {
+        return executionStack().popBack().execute(this);
+    }
+
+    /**
      * Gets a string representation of the <code>ProgramState</code>.
      * @return The string representation of the <code>ProgramState</code>.
      */
@@ -135,6 +162,7 @@ public class ProgramState {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
+        stringBuilder.append("Program state identificator: " + id + "\n");
         stringBuilder.append("Execution stack: " + executionStack.toString().replace(",", "") + "\n");
         stringBuilder.append("Symbol table: " + symbolTable + "\n");
         stringBuilder.append("Output messages: " + outputMessages + "\n");

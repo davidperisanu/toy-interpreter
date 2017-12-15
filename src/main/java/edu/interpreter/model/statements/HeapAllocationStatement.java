@@ -42,7 +42,7 @@ public class HeapAllocationStatement extends Statement {
         heap.add(memoryAddress, expression.evaluate(symbolTable, heap));
         symbolTable.add(variableName, memoryAddress);
 
-        return programState;
+        return null;
     }
 
     /**

@@ -34,7 +34,7 @@ public final class AssignmentStatement extends Statement {
         
         symbolTable.add(variableName, expression.evaluate(symbolTable, programState.heap()));
 
-        return programState;
+        return null;
     }
 
     /**

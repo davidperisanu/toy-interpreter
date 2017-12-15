@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import edu.interpreter.model.ProgramState;
-import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
+import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
  * Represents a generic <code>ProgramState</code> repository.
@@ -16,13 +16,6 @@ public interface IRepository {
      * @param programState The <code>ProgramState</code> to add to the <code>IRepository</code>.
      */
     public void add(ProgramState programState);
-
-    /**
-     * Gets the current <code>ProgramState</code>.
-     * @return The current <code>ProgramState</code>.
-     * @throws InvalidOperationException if the <code>IRepository</code> is empty.
-     */
-    public ProgramState getProgramState() throws InvalidOperationException;
 
     /**
      * Gets the path of the logging file.
@@ -37,23 +30,38 @@ public interface IRepository {
     public void logFilePath(String logFilePath);
 
     /**
-     * Logs a header for the <code>ProgramState</code>.
+     * Logs the header for a <code>ProgramState</code>.
+     * @param programState The <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
-    public void logProgramStateExecutionHeader() throws FileNotFoundException, IOException;
+    public void logProgramStateExecutionHeader(ProgramState programState) throws FileNotFoundException, IOException;
 
     /**
-     * Logs the execution state of the current <code>ProgramState</code>.
+     * Logs the execution state of a <code>ProgramState</code>.
+     * @param programState The <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
-    public void logProgramStateExecution() throws FileNotFoundException, IOException;
+    public void logProgramStateExecution(ProgramState programState) throws FileNotFoundException, IOException;
 
     /**
-     * Logs a header for the <code>ProgramState</code>.
+     * Logs the footer for a <code>ProgramState</code>.
+     * @param programState The <code>ProgramState</code>.
      * @throws FileNotFoundException if the file path is not valid.
      * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason.
      */
-    public void logProgramStateExecutionFooter() throws FileNotFoundException, IOException;
+    public void logProgramStateExecutionFooter(ProgramState programState) throws FileNotFoundException, IOException;
+
+    /**
+     * Gets a list of all the <code>ProgramState</code> instances contained.
+     * @return A list of all the <code>ProgramState</code> instances contained.
+     */
+    public IList<ProgramState> programStates();
+
+    /**
+     * Sets the list of the <code>ProgramState</code> instances with a given one.
+     * @param states List of <code>ProgramState</code> instances.
+     */
+    public void programStates(IList<ProgramState> states);
 }

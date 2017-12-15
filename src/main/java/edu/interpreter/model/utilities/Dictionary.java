@@ -14,6 +14,7 @@ import edu.interpreter.model.utilities.interfaces.IDictionary;
  * @author David Perisanu
  */
 public class Dictionary<Key, Value> implements IDictionary<Key, Value> {
+    private static final long serialVersionUID = IdGenerator.generateLongId();
     private HashMap<Key, Value> container;
 
     /**

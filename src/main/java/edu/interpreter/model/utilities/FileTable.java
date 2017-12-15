@@ -12,6 +12,8 @@ import edu.interpreter.model.utilities.interfaces.IFileTable;
  * @author David Perisanu
  */
 public class FileTable<Key, Value> extends Dictionary<Key, Value> implements IFileTable<Key, Value> {
+    private static final long serialVersionUID = IdGenerator.generateLongId();
+    
     /**
      * Initializes a new instance of the <code>FileTable<></code> class that is empty and has the default initial capacity.
      */

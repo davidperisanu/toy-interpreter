@@ -48,7 +48,7 @@ public class CloseReadFileStatement extends Statement {
         }
         fileTable.remove(fileDescriptor);
 
-        return programState;
+        return null;
     }
 
     /**

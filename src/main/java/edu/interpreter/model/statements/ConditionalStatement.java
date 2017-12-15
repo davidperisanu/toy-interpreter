@@ -43,7 +43,7 @@ public final class ConditionalStatement extends Statement {
         else                // false
             executionStack.pushBack(elseStatement);
 
-        return programState;
+        return null;
     }
 
     /**

@@ -134,6 +134,16 @@ public class List<T> implements IList<T> {
     }
 
     /**
+     * Gets the number of elements inside the <code>List<></code>.
+     * @return The number of elements inside the <code>List<></code>.
+     */
+    @Override
+    public int size()
+    {
+        return container.size();
+    }
+
+    /**
      * Gets a string representation of the <code>List<></code>.
      * @return The string representation of the <code>List<></code>.
      */

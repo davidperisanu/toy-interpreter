@@ -1,5 +1,6 @@
 package edu.interpreter.model.utilities.interfaces;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Set;
@@ -11,7 +12,7 @@ import edu.interpreter.model.utilities.exceptions.InvalidArgumentException;
  * Represents a generic file table of key/value pairs.
  * @author David Perisanu
  */
-public interface IFileTable<Key, Value> {
+public interface IFileTable<Key, Value> extends Serializable {
     /**
      * Adds an element with the provided key and value to the <code>IFileTable<></code>.
      * If an element with the provided key exists, its value will be updated.

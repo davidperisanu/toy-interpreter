@@ -35,7 +35,7 @@ public final class CompoundStatement extends Statement {
         if (firStatement != null)
             executionStack.pushBack(firStatement);
 
-        return programState;
+        return null;
     }
 
     /**

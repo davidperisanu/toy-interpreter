@@ -12,6 +12,8 @@ import edu.interpreter.model.utilities.interfaces.IHeap;
  * @author David Perisanu
  */
 public class Heap<Key, Value> extends Dictionary<Key, Value> implements IHeap<Key, Value> {
+    private static final long serialVersionUID = IdGenerator.generateLongId();
+    
     /**
      * Initializes a new instance of the <code>Heap<></code> class that is empty and has the default initial capacity.
      */

@@ -3,10 +3,16 @@ package edu.interpreter.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import edu.interpreter.model.ProgramState;
 import edu.interpreter.model.utilities.Heap;
+import edu.interpreter.model.utilities.List;
+import edu.interpreter.model.utilities.exceptions.InvalidOperationException;
 import edu.interpreter.model.utilities.interfaces.IHeap;
+import edu.interpreter.model.utilities.interfaces.IList;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
@@ -16,6 +22,7 @@ import edu.interpreter.repository.Repository;
  */
 public class Controller {
     IRepository repository;
+    ExecutorService executor;
 
     /**
      * Initializes a new instance of the <code>Controller</code> class that has the default value.
@@ -41,12 +48,37 @@ public class Controller {
     }
 
     /**
-     * Executes the top-most <code>Statement</code> of the current <code>ProgramState</code>.
+     * Executes a step for every program state inside a <code>IList<></code>.
+     * @param programStates <code>IList<></code> of program states.
      */
-    public void executeOneStep() {
-        ProgramState programState = repository.getProgramState();
+    public void executeOneStepGlobal(IList<ProgramState> programStates) throws FileNotFoundException, IOException, InterruptedException {
+        List<Callable<ProgramState>> callableProgramStates;
 
-        programState.executionStack().popBack().execute(programState);
+        for (ProgramState programState : programStates.all()) {
+            repository.logProgramStateExecutionHeader(programState);
+            repository.logProgramStateExecution(programState);
+            repository.logProgramStateExecutionFooter(programState);
+        }
+
+        callableProgramStates = new List<>();
+        
+        programStates.all().stream().map((ProgramState programState) -> (Callable<ProgramState>)(() -> { return programState.executeOneStep(); })).forEach(programState -> callableProgramStates.add(programState));
+        executor.invokeAll(callableProgramStates.all()).stream().map(future -> {
+            try {
+                return future.get();
+            }
+            catch (Exception e) {
+                throw new InvalidOperationException(e.getMessage());
+            }
+        }).filter(programState -> programState != null).forEach(programState -> programStates.add(programState));
+
+        for (ProgramState programState : programStates.all()) {
+            repository.logProgramStateExecutionHeader(programState);
+            repository.logProgramStateExecution(programState);
+            repository.logProgramStateExecutionFooter(programState);
+        }
+
+        repository.programStates(programStates);
     }
 
     /**
@@ -54,39 +86,52 @@ public class Controller {
      * @throws FileNotFoundException if the logging file path is not valid.
      * @throws IOException if the repository log file exists but is a directory rather than a regular file, does not exist but cannot be created, cannot be opened for any other reason, or file could not be closed.
      */
-    public void executeAllSteps() throws FileNotFoundException, IOException {
-        ProgramState programState = repository.getProgramState();
+    public void executeAllSteps() throws FileNotFoundException, IOException, InterruptedException {
+        IList<ProgramState> programStates;
 
-        System.out.println(programState);
+        executor = Executors.newFixedThreadPool(2);
+        programStates = removeCompletedPrograms(repository.programStates());
 
-        // If the repository has a log file.
-        if (repository.logFilePath().length() > 0) {
-            // Add program state header.
-            repository.logProgramStateExecutionHeader();
-        
-            // Log initial program state representation.
-            repository.logProgramStateExecution();
+        while (programStates.size() > 0) {
+            executeOneStepGlobal(programStates);
+            programStates = removeCompletedPrograms(repository.programStates());
         }
         
-        while (!programState.executionStack().isEmpty()) {
-            System.out.println("Executed statement: " + programState.executionStack().back());
+        executor.shutdownNow();
+        repository.programStates(programStates);
 
-            executeOneStep();
+        // ProgramState programState = repository.getProgramState();
 
-            // Get rid of the garbage (heap addresses that are not refered by any symbol table pair).
-            programState.heap(garbageCollector(programState.symbolTable().allValues(), programState.heap()));
+        // System.out.println(programState);
 
-            System.out.println(programState);
-            if (repository.logFilePath().length() > 0)
-                // Log current program state representation.
-                repository.logProgramStateExecution();
-        }
+        // // If the repository has a log file.
+        // if (repository.logFilePath().length() > 0) {
+        //     // Add program state header.
+        //     repository.logProgramStateExecutionHeader();
+        
+        //     // Log initial program state representation.
+        //     repository.logProgramStateExecution();
+        // }
+        
+        // while (!programState.executionStack().isEmpty()) {
+        //     System.out.println("Executed statement: " + programState.executionStack().back());
 
-        if (repository.logFilePath().length() > 0)
-            // Add program state footer.
-            repository.logProgramStateExecutionFooter();
+        //     executeOneStep();
 
-            closeFiles(programState);
+        //     // Get rid of the garbage (heap addresses that are not refered by any symbol table pair).
+        //     programState.heap(garbageCollector(programState.symbolTable().allValues(), programState.heap()));
+
+        //     System.out.println(programState);
+        //     if (repository.logFilePath().length() > 0)
+        //         // Log current program state representation.
+        //         repository.logProgramStateExecution();
+        // }
+
+        // if (repository.logFilePath().length() > 0)
+        //     // Add program state footer.
+        //     repository.logProgramStateExecutionFooter();
+
+        //     closeFiles(programState);
     }
 
     /**
@@ -129,5 +174,19 @@ public class Controller {
             throw new IOException("One file could not be closed.");
         else if (count > 1)
             throw new IOException(count + " files could not closed.");
+    }
+
+    /**
+     * Gets a <code>IList<></code> of all uncompleted program states.
+     * @param programStates Program states <code>IList<></code> to be filtered.
+     * @return A <code>IList<></code> of all uncompleted program states.
+     */
+    private IList<ProgramState> removeCompletedPrograms(IList<ProgramState> programStates)
+    {
+        List<ProgramState> notCompleted = new List<>();
+
+        programStates.all().stream().filter(programState -> programState.notCompleted()).forEach(programState -> notCompleted.add(programState));
+
+        return notCompleted;
     }
 }
