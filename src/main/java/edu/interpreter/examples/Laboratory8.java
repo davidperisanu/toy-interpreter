@@ -21,6 +21,10 @@ import edu.interpreter.model.utilities.interfaces.IDeque;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
+/**
+ * Some examples for eighth laboratory.
+ * @author David Perisanu
+ */
 public class Laboratory8 {
     public static Controller example1() {
         AssignmentStatement assignStmt, forkAssignStmt;
@@ -60,7 +64,7 @@ public class Laboratory8 {
         executionStack.pushFront(printStmt3);
         executionStack.pushFront(printStmt4);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
         
         return new Controller(repository);
     }

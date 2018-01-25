@@ -65,7 +65,7 @@ public final class Laboratory4 {
         IDictionary<String, Integer> symbolTable = new Dictionary<>();
         IList<String> outputMessages = new List<>();
         IFileTable<Integer, Pair<String, BufferedReader>> fileTable = new FileTable<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, fileTable, null);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, fileTable, null, null);
         IRepository repository = new Repository(logFilePath);
         Controller controller = new Controller(repository);
 
@@ -118,7 +118,7 @@ public final class Laboratory4 {
         IDictionary<String, Integer> symbolTable = new Dictionary<>();
         IList<String> outputMessages = new List<>();
         IFileTable<Integer, Pair<String, BufferedReader>> fileTable = new FileTable<>();
-        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, fileTable, null);
+        ProgramState programState = new ProgramState(executionStack, symbolTable, outputMessages, fileTable, null, null);
         IRepository repository = new Repository(logFilePath);
         Controller controller = new Controller(repository);
 

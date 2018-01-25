@@ -15,7 +15,7 @@ public class Deque<T> implements IDeque<T> {
     private LinkedList<T> container;
 
     /**
-     * Initializes a new instance of the <code>Deque<></code> class that is empty. 
+     * Initializes a new instance of the <code>Deque<></code> class that is empty.
      */
     public Deque() {
         container = new LinkedList<>();

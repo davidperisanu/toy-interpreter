@@ -8,12 +8,14 @@ import edu.interpreter.model.utilities.Dictionary;
 import edu.interpreter.model.utilities.FileTable;
 import edu.interpreter.model.utilities.Heap;
 import edu.interpreter.model.utilities.IdGenerator;
+import edu.interpreter.model.utilities.LatchTable;
 import edu.interpreter.model.utilities.List;
 import edu.interpreter.model.utilities.Pair;
 import edu.interpreter.model.utilities.interfaces.IDeque;
 import edu.interpreter.model.utilities.interfaces.IDictionary;
 import edu.interpreter.model.utilities.interfaces.IFileTable;
 import edu.interpreter.model.utilities.interfaces.IHeap;
+import edu.interpreter.model.utilities.interfaces.ILatchTable;
 import edu.interpreter.model.utilities.interfaces.IList;
 
 /**
@@ -27,6 +29,7 @@ public class ProgramState {
     private IList<String> outputMessages;
     private IFileTable<Integer, Pair<String, BufferedReader>> fileTable;
     private IHeap<Integer, Integer> heap;
+    private ILatchTable<Integer, Integer> latchTable;
 
     /**
      * Initializes a new instance of the <code>ProgramState</code> class that has the default values.
@@ -38,6 +41,7 @@ public class ProgramState {
         outputMessages = new List<>();
         fileTable = new FileTable<>();
         heap = new Heap<>();
+        latchTable = new LatchTable<>();
     }
 
     /**
@@ -46,14 +50,16 @@ public class ProgramState {
      * @param symbolTable Symbol table of the <code>ProgramState</code>.
      * @param outputMessages List of outputed messages of the <code>ProgramState</code>.
      * @param fileTable File table of the <code>ProgramState</code>.
+     * @param latchTable Latch table of the <code>ProgramState</code>.
      */
-    public ProgramState(IDeque<Statement> executionStack, IDictionary<String, Integer> symbolTable, IList<String> outputMessages, IFileTable<Integer, Pair<String, BufferedReader>> fileTable, IHeap<Integer, Integer> heap) {
+    public ProgramState(IDeque<Statement> executionStack, IDictionary<String, Integer> symbolTable, IList<String> outputMessages, IFileTable<Integer, Pair<String, BufferedReader>> fileTable, IHeap<Integer, Integer> heap, ILatchTable<Integer, Integer> latchTable) {
         id = IdGenerator.generateId();
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.outputMessages = outputMessages;
         this.fileTable = fileTable;
         this.heap = heap;
+        this.latchTable = latchTable;
     }
 
     /**
@@ -105,6 +111,14 @@ public class ProgramState {
     }
 
     /**
+     * Gets the latch table of the <code>ProgramState</code>.
+     * @return The latch table of the <code>ProgramState</code>.
+     */
+    public ILatchTable<Integer, Integer> latchTable() {
+        return latchTable;
+    }
+
+    /**
      * Sets the execution stack of the <code>ProgramState</code>.
      */
     public void executionStack(IDeque<Statement> executionStack) {
@@ -138,6 +152,13 @@ public class ProgramState {
     public void heap(IHeap<Integer, Integer> heap) {
         this.heap = heap;
     }
+    
+    /**
+     * Sets the latch table of the <code>ProgramState</code>.
+     */
+    public void latchTable(ILatchTable<Integer, Integer> latchTable) {
+        this.latchTable = latchTable;
+    }
 
     /**
      * Checks if the execution stack is empty or not.
@@ -168,6 +189,7 @@ public class ProgramState {
         stringBuilder.append("Output messages: " + outputMessages + "\n");
         stringBuilder.append("File table: " + fileTable.toString().replace("(", "(\"").replace(", ", "\", ") + "\n");   // Adds "" to filenames.
         stringBuilder.append("Heap: " + heap.toString() + "\n");
+        stringBuilder.append("Latch table: " + latchTable.toString() + "\n");
 
         return stringBuilder.toString();
     }

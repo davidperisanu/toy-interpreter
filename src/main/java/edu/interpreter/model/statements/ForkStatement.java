@@ -37,7 +37,7 @@ public class ForkStatement extends Statement {
         forkExecutionStack = new Deque<>();
         forkExecutionStack.pushFront(statement);
         try {
-            forkProgramState = new ProgramState(forkExecutionStack, (IDictionary<String, Integer>)DeepCopy.copy(programState.symbolTable()), programState.outputMessages(), programState.fileTable(), programState.heap());
+            forkProgramState = new ProgramState(forkExecutionStack, (IDictionary<String, Integer>)DeepCopy.copy(programState.symbolTable()), programState.outputMessages(), programState.fileTable(), programState.heap(), programState.latchTable());
         }
         catch (IOException e) {
             throw new InvalidOperationException("I/O exception. Object could not be serialized.");

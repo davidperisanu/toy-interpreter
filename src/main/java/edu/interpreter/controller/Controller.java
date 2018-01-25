@@ -48,17 +48,41 @@ public class Controller {
     }
 
     /**
+     * Gets the <code>ExecutorService</code> of the controller.
+     * @return The <code>ExecutorService</code> of the controller.
+     */
+    public ExecutorService executor() {
+        return executor;
+    }
+
+    /**
+     * Sets the <code>ExecutorService</code> of the controller.
+     */
+    public void executor(ExecutorService executor) {
+        this.executor = executor;
+    }
+
+    /**
+     * Shuts down the executor.
+     */
+    public void closeExecutor() {
+        if (!executor.isShutdown())
+            executor.shutdown();
+    }
+
+    /**
      * Executes a step for every program state inside a <code>IList<></code>.
      * @param programStates <code>IList<></code> of program states.
      */
     public void executeOneStepGlobal(IList<ProgramState> programStates) throws FileNotFoundException, IOException, InterruptedException {
         List<Callable<ProgramState>> callableProgramStates;
 
-        for (ProgramState programState : programStates.all()) {
-            repository.logProgramStateExecutionHeader(programState);
-            repository.logProgramStateExecution(programState);
-            repository.logProgramStateExecutionFooter(programState);
-        }
+        if (repository.logFilePath().length() > 0)
+            for (ProgramState programState : programStates.all()) {
+                repository.logProgramStateExecutionHeader(programState);
+                repository.logProgramStateExecution(programState);
+                repository.logProgramStateExecutionFooter(programState);
+            }
 
         callableProgramStates = new List<>();
         
@@ -72,11 +96,12 @@ public class Controller {
             }
         }).filter(programState -> programState != null).forEach(programState -> programStates.add(programState));
 
-        for (ProgramState programState : programStates.all()) {
-            repository.logProgramStateExecutionHeader(programState);
-            repository.logProgramStateExecution(programState);
-            repository.logProgramStateExecutionFooter(programState);
-        }
+        if (repository.logFilePath().length() > 0)
+            for (ProgramState programState : programStates.all()) {
+                repository.logProgramStateExecutionHeader(programState);
+                repository.logProgramStateExecution(programState);
+                repository.logProgramStateExecutionFooter(programState);
+            }
 
         repository.programStates(programStates);
     }
@@ -181,12 +206,22 @@ public class Controller {
      * @param programStates Program states <code>IList<></code> to be filtered.
      * @return A <code>IList<></code> of all uncompleted program states.
      */
-    private IList<ProgramState> removeCompletedPrograms(IList<ProgramState> programStates)
+    public IList<ProgramState> removeCompletedPrograms(IList<ProgramState> programStates)
     {
         List<ProgramState> notCompleted = new List<>();
 
         programStates.all().stream().filter(programState -> programState.notCompleted()).forEach(programState -> notCompleted.add(programState));
 
         return notCompleted;
+    }
+
+    /**
+     * Gets a string representation of the <code>Controller</code>.
+     * @return The string representation of the <code>Controller</code>.
+     */
+    @Override
+    public String toString()
+    {
+        return repository.programStates().get(0).executionStack().toString().replace(";", "").replace(",", "");
     }
 }

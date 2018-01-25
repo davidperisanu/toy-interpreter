@@ -21,6 +21,10 @@ import edu.interpreter.model.utilities.interfaces.IDeque;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
+/**
+ * Some examples for fifth laboratory.
+ * @author David Perisanu
+ */
 public class Laboratory5 {
     /**
      * <code>v = 10;</code>
@@ -52,7 +56,7 @@ public class Laboratory5 {
         executionStack.pushFront(heapAllocStmt2);
         executionStack.pushFront(printStmt);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
@@ -91,7 +95,7 @@ public class Laboratory5 {
         executionStack.pushFront(printStmt1);
         executionStack.pushFront(printStmt2);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
@@ -135,7 +139,7 @@ public class Laboratory5 {
         executionStack.pushFront(printStmt1);
         executionStack.pushFront(printStmt2);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
@@ -183,7 +187,7 @@ public class Laboratory5 {
         executionStack.pushFront(printStmt2);
         executionStack.pushFront(assignStmt2);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }

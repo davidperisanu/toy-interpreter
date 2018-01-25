@@ -27,10 +27,26 @@ public final class Pair<Left, Right> {
     }
 
     /**
+     * Gets the element on the left of the <code>Pair</code>.
+     * @return The element on the left of the <code>Pair</code>.
+     */
+    public Left getLeft() {
+        return left;
+    }
+
+    /**
      * Gets the element on the right of the <code>Pair</code>.
      * @return The element on the right of the <code>Pair</code>.
      */
     public Right right() {
+        return right;
+    }
+
+    /**
+     * Gets the element on the right of the <code>Pair</code>.
+     * @return The element on the right of the <code>Pair</code>.
+     */
+    public Right getRight() {
         return right;
     }
 

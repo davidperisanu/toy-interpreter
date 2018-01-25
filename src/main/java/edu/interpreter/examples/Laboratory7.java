@@ -25,6 +25,10 @@ import edu.interpreter.model.utilities.interfaces.IDeque;
 import edu.interpreter.repository.IRepository;
 import edu.interpreter.repository.Repository;
 
+/**
+ * Some examples for seventh laboratory.
+ * @author David Perisanu
+ */
 public class Laboratory7 {
     /**
      * <code>a = 10 + (2 < 6);</code>
@@ -55,7 +59,7 @@ public class Laboratory7 {
         executionStack.pushFront(printStmt1);
         executionStack.pushFront(printStmt2);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
@@ -86,7 +90,7 @@ public class Laboratory7 {
         executionStack.pushFront(whileStmt);
         executionStack.pushFront(printStmt);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
@@ -122,7 +126,7 @@ public class Laboratory7 {
         executionStack.pushFront(printStmt);
         executionStack.pushFront(conditionalStmt);
 
-        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>()));
+        repository.add(new ProgramState(executionStack, new Dictionary<>(), new List<>(), new FileTable<>(), new Heap<>(), null));
 
         return new Controller(repository);
     }
